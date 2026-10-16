@@ -23,7 +23,7 @@ s=re.sub(r'<!doctype html>\s*<html[^>]*>\s*<head>\s*','',s); s=s.replace('</head
 s=s.replace('</body>\n</html>\n','')
 s=re.sub(r'<meta [^>]*>\n','',s)
 s=re.sub(r'\s*@font-face[^\n]*\n','\n',s)
-s=s.replace('<style>','<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;600;700&display=swap">\n<style>',1)
+if 'fonts.googleapis' not in s: s=s.replace('<style>','<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=IBM+Plex+Sans:wght@400;600;700&display=swap">\n<style>',1)
 s=s.replace('Plex, system-ui','"IBM Plex Sans", system-ui').replace('Plex, sans-serif','"IBM Plex Sans", sans-serif').replace('PlexMono, monospace','"IBM Plex Mono", monospace')
 s=s.replace('--max: 1180px;','--max: 1180px; color-scheme: dark;')
 open(sys.argv[2],'w').write(s)
