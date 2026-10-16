@@ -1,0 +1,61 @@
+{
+  "_note": "One entry per video, in page order. Add an entry and run tools/media.sh; the page reads this file. loop_at: second where the 8 s loop starts, null for none.",
+  "videos": [
+    {
+      "id": "hub",
+      "loop_at": 92,
+      "loop_name": "forecast",
+      "title": {
+        "en": "One officer. One sea.",
+        "el": "Ένας αξιωματικός. Μία θάλασσα."
+      },
+      "blurb": {
+        "en": "The overview. What it would take for one officer to keep watch over a whole sea, and what SEAVISTA measured on the way.",
+        "el": "Η επισκόπηση. Τι χρειάζεται για να επιβλέπει ένας αξιωματικός μια ολόκληρη θάλασσα, και τι μέτρησε το SEAVISTA στην πορεία."
+      }
+    },
+    {
+      "id": "modelling",
+      "loop_at": 250,
+      "loop_name": "next-hour",
+      "title": {
+        "en": "Learning normal",
+        "el": "Μαθαίνοντας το σύνηθες"
+      },
+      "blurb": {
+        "en": "How SEAVISTA learns what ordinary movement looks like, one hour of a voyage at a time, and scores every vessel against it.",
+        "el": "Πώς το SEAVISTA μαθαίνει τη συνήθη κίνηση των πλοίων, μία ώρα ταξιδιού τη φορά, και βαθμολογεί κάθε σκάφος με βάση αυτήν."
+      }
+    },
+    {
+      "id": "results",
+      "loop_at": 226,
+      "loop_name": "seas",
+      "title": {
+        "en": "What we measured",
+        "el": "Τι μετρήσαμε"
+      },
+      "blurb": {
+        "en": "The numbers behind SEAVISTA, and what each one means for the officer.",
+        "el": "Οι αριθμοί πίσω από το SEAVISTA, και τι σημαίνει ο καθένας για τον αξιωματικό."
+      }
+    },
+    {
+      "id": "awareness",
+      "loop_at": 166,
+      "loop_name": "picture",
+      "title": {
+        "en": "How the agent sees the sea",
+        "el": "Πώς βλέπει τη θάλασσα ο πράκτορας"
+      },
+      "blurb": {
+        "en": "The AI agent writes a small program for each case, runs it over the recorded traffic and reads its own maps and charts.",
+        "el": "Ο πράκτορας τεχνητής νοημοσύνης γράφει ένα μικρό πρόγραμμα για κάθε υπόθεση, το εκτελεί πάνω στην καταγεγραμμένη κίνηση και διαβάζει τους δικούς του χάρτες και διαγράμματα."
+      }
+    }
+  ],
+  "hero": {
+    "id": "hub",
+    "at": 22
+  }
+}

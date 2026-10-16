@@ -1,0 +1,496 @@
+1
+00:00:00,700 --> 00:00:03,800
+This is a close look at
+one part of SEAVISTA,
+
+2
+00:00:03,800 --> 00:00:07,533
+a research project built
+at FORTH-ICS and co-funded
+
+3
+00:00:07,533 --> 00:00:12,301
+by Frontex under the Frontex
+Research Grants Programme.
+
+4
+00:00:12,301 --> 00:00:17,240
+Picture a busy sea on an ordinary day.
+Thousands of ships, all on the move.
+
+5
+00:00:17,240 --> 00:00:20,133
+Our example is the waters around Denmark.
+
+6
+00:00:20,133 --> 00:00:22,995
+Any other sea area can
+be added the same way.
+
+7
+00:00:22,995 --> 00:00:26,167
+We want a system that keeps
+up with all of that traffic,
+
+8
+00:00:26,167 --> 00:00:29,679
+and spots the one vessel
+that behaves unlike the rest.
+
+9
+00:00:29,679 --> 00:00:31,100
+You could write rules.
+
+10
+00:00:31,100 --> 00:00:34,536
+But a rule only catches what
+somebody thought of in advance.
+
+11
+00:00:34,536 --> 00:00:37,367
+You could learn from
+examples of bad behaviour.
+
+12
+00:00:37,367 --> 00:00:40,263
+But there are very few,
+and they keep changing.
+
+13
+00:00:40,263 --> 00:00:41,833
+So we turn it around.
+
+14
+00:00:41,833 --> 00:00:44,233
+We teach the system
+what normal looks like,
+
+15
+00:00:44,233 --> 00:00:46,943
+and anything far from normal stands out.
+
+16
+00:00:46,943 --> 00:00:51,015
+And when something stands
+out, a person takes a look.
+
+17
+00:00:51,015 --> 00:00:55,950
+Learning normal sounds simple. Show the
+computer lots of ships, and let it learn.
+
+18
+00:00:55,950 --> 00:00:57,733
+But look at these two ships.
+
+19
+00:00:57,733 --> 00:01:02,291
+They make the same turn, one here,
+and one far away, heading another way.
+
+20
+00:01:02,291 --> 00:01:07,267
+To a computer reading positions, these
+look like two completely different things.
+
+21
+00:01:07,267 --> 00:01:09,967
+It would have to learn the
+same turn over and over,
+
+22
+00:01:09,967 --> 00:01:12,292
+once for every place and direction.
+
+23
+00:01:12,292 --> 00:01:17,233
+So we slide both to the same starting
+point, and turn them to face the same way.
+
+24
+00:01:17,233 --> 00:01:19,814
+Now they are plainly the same turn.
+
+25
+00:01:19,814 --> 00:01:21,167
+Done for every hour,
+
+26
+00:01:21,167 --> 00:01:23,533
+this means each example of a manoeuvre,
+
+27
+00:01:23,533 --> 00:01:24,767
+wherever it happened,
+
+28
+00:01:24,767 --> 00:01:27,076
+teaches the model the same lesson.
+
+29
+00:01:27,076 --> 00:01:29,800
+And we split normal
+into separate questions.
+
+30
+00:01:29,800 --> 00:01:31,267
+Is the movement normal?
+
+31
+00:01:31,267 --> 00:01:33,767
+Does it follow from what
+the ship was just doing?
+
+32
+00:01:33,767 --> 00:01:36,073
+Is it somewhere ships actually go?
+
+33
+00:01:36,073 --> 00:01:41,700
+Each question gets its own score.
+Adding another question later is easy.
+
+34
+00:01:41,700 --> 00:01:44,457
+Start with the first
+question, the movement.
+
+35
+00:01:44,457 --> 00:01:47,500
+A ship's track is a
+long list of positions.
+
+36
+00:01:47,500 --> 00:01:49,200
+Ships report at different rates,
+
+37
+00:01:49,200 --> 00:01:51,300
+so no two lists are the same length,
+
+38
+00:01:51,300 --> 00:01:53,431
+and that makes them hard to compare.
+
+39
+00:01:53,431 --> 00:01:56,611
+So we cut every voyage
+into one hour pieces.
+
+40
+00:01:56,611 --> 00:02:01,253
+Then we squeeze each piece down to eight
+numbers, a fingerprint of the manoeuvre.
+
+41
+00:02:01,253 --> 00:02:03,000
+Why can eight numbers be enough?
+
+42
+00:02:03,000 --> 00:02:05,433
+Because a real track is a simple shape.
+
+43
+00:02:05,433 --> 00:02:09,009
+A ship turns gently, and
+its speed changes slowly.
+
+44
+00:02:09,009 --> 00:02:11,967
+So real hours take only
+a few kinds of shape,
+
+45
+00:02:11,967 --> 00:02:15,454
+and eight numbers are
+enough to tell them apart.
+
+46
+00:02:15,454 --> 00:02:18,565
+Here is how one hour
+becomes those eight numbers.
+
+47
+00:02:18,565 --> 00:02:21,200
+First, we move it so it starts at zero,
+
+48
+00:02:21,200 --> 00:02:24,685
+and turn it so the ship always
+starts out heading the same way.
+
+49
+00:02:24,685 --> 00:02:28,610
+Every hour now starts in the same
+place, pointing the same way.
+
+50
+00:02:28,610 --> 00:02:33,069
+Next, we swap the jumpy list of
+positions for one smooth curve.
+
+51
+00:02:33,069 --> 00:02:36,367
+The curve is built by adding
+up a few standard wave shapes,
+
+52
+00:02:36,367 --> 00:02:38,578
+called Chebyshev polynomials.
+
+53
+00:02:38,578 --> 00:02:41,800
+Sixteen of them for
+east, sixteen for north.
+
+54
+00:02:41,800 --> 00:02:45,427
+Thirty two numbers in all,
+however many reports the hour had.
+
+55
+00:02:45,427 --> 00:02:47,267
+Then a small neural network,
+
+56
+00:02:47,267 --> 00:02:48,633
+an autoencoder,
+
+57
+00:02:48,633 --> 00:02:51,600
+learns to squeeze those
+thirty two numbers into eight,
+
+58
+00:02:51,600 --> 00:02:54,325
+and to rebuild the curve from them.
+
+59
+00:02:54,325 --> 00:02:57,367
+Now we need to say how normal
+those eight numbers are.
+
+60
+00:02:57,367 --> 00:02:59,743
+For that, we need a probability.
+
+61
+00:02:59,743 --> 00:03:02,909
+We use a technique called
+a normalizing flow.
+
+62
+00:03:02,909 --> 00:03:05,267
+It starts with the
+simplest shape there is,
+
+63
+00:03:05,267 --> 00:03:08,167
+a bell curve, and learns
+to stretch and bend it,
+
+64
+00:03:08,167 --> 00:03:11,046
+step by step, until it matches the data.
+
+65
+00:03:11,046 --> 00:03:14,893
+Here it is in one dimension.
+One bell becomes two bumps.
+
+66
+00:03:14,893 --> 00:03:19,373
+In two dimensions, a round blob
+learns to become two crescent moons.
+
+67
+00:03:19,373 --> 00:03:22,367
+And on real ship positions
+in the Danish straits,
+
+68
+00:03:22,367 --> 00:03:24,690
+it learns the shipping lanes on its own.
+
+69
+00:03:24,690 --> 00:03:28,133
+Because every bend can be
+undone, it works both ways.
+
+70
+00:03:28,133 --> 00:03:31,100
+Give it a ship, and it
+says how likely that is.
+
+71
+00:03:31,100 --> 00:03:34,636
+Run it backwards, and it
+produces new, plausible ones.
+
+72
+00:03:34,636 --> 00:03:36,833
+And because it is a true probability,
+
+73
+00:03:36,833 --> 00:03:39,367
+a score means the same
+thing for every ship,
+
+74
+00:03:39,367 --> 00:03:41,106
+and scores can be added.
+
+75
+00:03:41,106 --> 00:03:44,500
+Give it an ordinary hour,
+and it says very likely.
+
+76
+00:03:44,500 --> 00:03:48,387
+Give it a strange one,
+and the probability drops.
+
+77
+00:03:48,387 --> 00:03:51,022
+The second question is about sequence.
+
+78
+00:03:51,022 --> 00:03:55,560
+Each hour can look normal on its own,
+while the order they come in does not.
+
+79
+00:03:55,560 --> 00:04:00,208
+So a second flow learns what usually
+comes next, given the hour before.
+
+80
+00:04:00,208 --> 00:04:02,467
+This is a conditional probability.
+
+81
+00:04:02,467 --> 00:04:06,000
+How likely the next hour is,
+given the one we just saw.
+
+82
+00:04:06,000 --> 00:04:09,300
+Run it forwards, and it
+imagines the next hour.
+
+83
+00:04:09,300 --> 00:04:13,285
+Ask it many times, and you get
+a whole fan of possible futures.
+
+84
+00:04:13,285 --> 00:04:17,674
+Here is what the ship actually
+did. It falls right inside the fan.
+
+85
+00:04:17,674 --> 00:04:20,600
+And the condition can hold
+more than the last hour.
+
+86
+00:04:20,600 --> 00:04:25,438
+The traffic around it, the water, the
+ports, the destination it broadcasts.
+
+87
+00:04:25,438 --> 00:04:28,167
+Each one changes what counts as normal.
+
+88
+00:04:28,167 --> 00:04:33,550
+The same turn can be routine near
+a port, and unusual in open water.
+
+89
+00:04:33,550 --> 00:04:35,622
+The third question is where.
+
+90
+00:04:35,622 --> 00:04:38,567
+To learn movement, we threw location away.
+
+91
+00:04:38,567 --> 00:04:41,554
+So now we bring it back,
+as a score of its own.
+
+92
+00:04:41,554 --> 00:04:45,864
+A third flow learns where ships are
+found, and that they are never on land.
+
+93
+00:04:45,864 --> 00:04:49,961
+Take the same hour and move it
+thirty kilometres into empty water.
+
+94
+00:04:49,961 --> 00:04:55,254
+The movement score stays exactly
+where it was. The place score jumps.
+
+95
+00:04:55,254 --> 00:04:58,800
+Each question is a separate
+module, trained on its own.
+
+96
+00:04:58,800 --> 00:05:00,921
+New checks can be plugged in later.
+
+97
+00:05:00,921 --> 00:05:05,448
+They can also take extra information,
+like whether the ship is near a port.
+
+98
+00:05:05,448 --> 00:05:07,967
+A raw probability is hard to read.
+
+99
+00:05:07,967 --> 00:05:10,400
+So each score becomes one plain number.
+
+100
+00:05:10,400 --> 00:05:14,600
+Out of a hundred ordinary hours, how
+many look stranger than this one?
+
+101
+00:05:14,600 --> 00:05:19,328
+This stage is meant to be cautious,
+so that nothing unusual slips past.
+
+102
+00:05:19,328 --> 00:05:25,312
+An AI agent then investigates each
+one, and a person makes the final call.
+
+103
+00:05:25,312 --> 00:05:28,194
+All of this runs on a single workstation.
+
+104
+00:05:28,194 --> 00:05:33,133
+One request at a time, it handles about
+six thousand vessel updates a second.
+
+105
+00:05:33,133 --> 00:05:36,015
+Grouped into batches,
+forty eight times that.
+
+106
+00:05:36,015 --> 00:05:39,732
+And there is a lot of room
+left to make it faster.
+
+107
+00:05:39,732 --> 00:05:45,867
+SEAVISTA was built at FORTH-ICS and CVRL.

@@ -1,0 +1,400 @@
+1
+00:00:00,700 --> 00:00:03,033
+This is an overview of SEAVISTA,
+
+2
+00:00:03,033 --> 00:00:06,733
+a research project built
+at FORTH-ICS and co-funded
+
+3
+00:00:06,733 --> 00:00:10,633
+by Frontex under the Frontex
+Research Grants Programme.
+
+4
+00:00:10,633 --> 00:00:15,367
+It asks what it would take for one officer
+to manage a whole sea with confidence.
+
+5
+00:00:15,367 --> 00:00:17,732
+Deep dives to come.
+
+6
+00:00:17,732 --> 00:00:20,367
+This is real shipping, recorded.
+
+7
+00:00:20,367 --> 00:00:24,267
+2 days of Danish waters, as the
+vessels themselves reported it.
+
+8
+00:00:24,267 --> 00:00:28,057
+Every track is a vessel saying
+where it is, every few seconds.
+
+9
+00:00:28,057 --> 00:00:32,124
+Watching it takes a team today, and
+it is still more than a team can hold.
+
+10
+00:00:32,124 --> 00:00:34,100
+Almost all of it is ordinary.
+
+11
+00:00:34,100 --> 00:00:36,033
+A ferry keeping its timetable.
+
+12
+00:00:36,033 --> 00:00:38,415
+A tanker on the line it always takes.
+
+13
+00:00:38,415 --> 00:00:43,156
+The job is to find the one that
+stands out, while it still matters.
+
+14
+00:00:43,156 --> 00:00:45,200
+Today that is done with rules.
+
+15
+00:00:45,200 --> 00:00:48,874
+Draw a zone, set a speed limit,
+wait for something to cross it.
+
+16
+00:00:48,874 --> 00:00:50,700
+Leave it loose and it misses.
+
+17
+00:00:50,700 --> 00:00:54,516
+Draw it tight and it fires on the
+ferry, every day, on schedule.
+
+18
+00:00:54,516 --> 00:00:58,335
+And every new trick needs a new
+rule, written after it has worked.
+
+19
+00:00:58,335 --> 00:01:01,868
+The sea changes faster
+than the rulebook does.
+
+20
+00:01:01,868 --> 00:01:06,955
+SEAVISTA never waits to be asked. Every
+vessel is scored on every report it sends.
+
+21
+00:01:06,955 --> 00:01:09,000
+3 of the questions it asks.
+
+22
+00:01:09,000 --> 00:01:10,933
+Is this manoeuvre ordinary?
+
+23
+00:01:10,933 --> 00:01:14,433
+Is it an ordinary continuation
+of what this vessel was doing?
+
+24
+00:01:14,433 --> 00:01:16,073
+Do vessels ever come here?
+
+25
+00:01:16,073 --> 00:01:20,400
+These are 3 parts of one calculation,
+and it has room for more.
+
+26
+00:01:20,400 --> 00:01:24,252
+New evidence goes in as another
+term, and the model carries on.
+
+27
+00:01:24,252 --> 00:01:26,833
+A position tells you
+where a vessel has been.
+
+28
+00:01:26,833 --> 00:01:29,113
+Every decision is about where it will be.
+
+29
+00:01:29,113 --> 00:01:30,900
+One model gives both.
+
+30
+00:01:30,900 --> 00:01:35,400
+A curve fitted to the track, a learned
+density over where such curves go.
+
+31
+00:01:35,400 --> 00:01:38,533
+Run it forward and you reason
+over possible outcomes,
+
+32
+00:01:38,533 --> 00:01:41,667
+each one weighed by how often
+vessels have gone there.
+
+33
+00:01:41,667 --> 00:01:43,927
+A learned probability, not a rule.
+
+34
+00:01:43,927 --> 00:01:46,797
+Where it can go depends on
+more than its own heading.
+
+35
+00:01:46,797 --> 00:01:48,200
+The traffic around it.
+
+36
+00:01:48,200 --> 00:01:49,500
+The water under it.
+
+37
+00:01:49,500 --> 00:01:51,167
+The coast, the ports.
+
+38
+00:01:51,167 --> 00:01:54,067
+And an intent, the
+destination it broadcasts.
+
+39
+00:01:54,067 --> 00:01:57,707
+All of it inputs to one
+calculation, not rules in a list.
+
+40
+00:01:57,707 --> 00:02:02,390
+So the same turn is routine in a shipping
+lane, and worth a look in empty water.
+
+41
+00:02:02,390 --> 00:02:07,247
+And the agent runs it for itself,
+in the middle of its own reasoning.
+
+42
+00:02:07,247 --> 00:02:11,979
+When something stands out, an agent works
+the case before any officer is called.
+
+43
+00:02:11,979 --> 00:02:15,243
+The agent writes its own
+investigation, and runs it.
+
+44
+00:02:15,243 --> 00:02:17,133
+It can question the live picture,
+
+45
+00:02:17,133 --> 00:02:18,400
+run the forecast,
+
+46
+00:02:18,400 --> 00:02:19,933
+plot this vessel's scores,
+
+47
+00:02:19,933 --> 00:02:21,767
+and draw the water on a map.
+
+48
+00:02:21,767 --> 00:02:23,400
+Then it looks at what it drew,
+
+49
+00:02:23,400 --> 00:02:26,866
+and reasons about the picture the
+way it reasons about the numbers.
+
+50
+00:02:26,866 --> 00:02:29,133
+It can ask who operates this vessel,
+
+51
+00:02:29,133 --> 00:02:30,800
+what was reported nearby,
+
+52
+00:02:30,800 --> 00:02:32,716
+what this watch has already cleared.
+
+53
+00:02:32,716 --> 00:02:35,567
+The next case gets a
+different investigation.
+
+54
+00:02:35,567 --> 00:02:39,841
+Different questions, in a different
+order, chosen after seeing the evidence.
+
+55
+00:02:39,841 --> 00:02:42,527
+A rulebook cannot do that.
+
+56
+00:02:42,527 --> 00:02:46,367
+Without a layer like this, every
+alert is somebody's problem.
+
+57
+00:02:46,367 --> 00:02:49,200
+The queue grows faster
+than a watch can clear it,
+
+58
+00:02:49,200 --> 00:02:51,452
+and the cost of looking falls on people.
+
+59
+00:02:51,452 --> 00:02:54,233
+With it, one officer works a short list.
+
+60
+00:02:54,233 --> 00:02:57,067
+Every case on it has
+already been investigated,
+
+61
+00:02:57,067 --> 00:03:00,399
+and arrives with its reasons attached.
+
+62
+00:03:00,399 --> 00:03:04,333
+Across 3 passes over 2 labelled
+sets of ordinary traffic,
+
+63
+00:03:04,333 --> 00:03:06,833
+it raised no false alarm at all.
+
+64
+00:03:06,833 --> 00:03:09,591
+A system that cries
+wolf gets switched off.
+
+65
+00:03:09,591 --> 00:03:11,500
+That quiet is engineered.
+
+66
+00:03:11,500 --> 00:03:14,100
+The scoring layer is deliberately eager.
+
+67
+00:03:14,100 --> 00:03:16,467
+It flags anything that stands out.
+
+68
+00:03:16,467 --> 00:03:19,800
+Every flag then goes to an
+agent with the full context,
+
+69
+00:03:19,800 --> 00:03:24,058
+so a real case reaches the
+operator already explained.
+
+70
+00:03:24,058 --> 00:03:29,033
+SEAVISTA is a research prototype, and
+all of it runs on one workstation.
+
+71
+00:03:29,033 --> 00:03:34,133
+About 6,000 vessel-cycles a second,
+every one a full pass through the models.
+
+72
+00:03:34,133 --> 00:03:35,700
+Spend it as you like.
+
+73
+00:03:35,700 --> 00:03:40,229
+1,200 vessels at 5 refreshes
+a second, or 3,000 at 2.
+
+74
+00:03:40,229 --> 00:03:42,233
+Aggregate the requests and the same
+
+75
+00:03:42,233 --> 00:03:45,867
+hardware sustains about
+48 times that throughput.
+
+76
+00:03:45,867 --> 00:03:48,367
+It was tested end to end on one sea,
+
+77
+00:03:48,367 --> 00:03:52,615
+and assessed for generalisation
+across 4 national-scale corpora.
+
+78
+00:03:52,615 --> 00:03:54,933
+Under load, with queueing counted in,
+
+79
+00:03:54,933 --> 00:03:58,800
+an alert is in front of a person
+in a median of 84 seconds,
+
+80
+00:03:58,800 --> 00:04:00,867
+investigated and explained,
+
+81
+00:04:00,867 --> 00:04:02,290
+ready for their decision.
+
+82
+00:04:02,290 --> 00:04:04,733
+Nothing becomes final without a person.
+
+83
+00:04:04,733 --> 00:04:06,467
+The system narrows the sea.
+
+84
+00:04:06,467 --> 00:04:08,880
+The officer decides.
+
+85
+00:04:08,880 --> 00:04:12,533
+SEAVISTA has run end to
+end on recorded traffic.
+
+86
+00:04:12,533 --> 00:04:16,533
+The parts that would let one officer
+manage a whole sea are now built,
+
+87
+00:04:16,533 --> 00:04:17,667
+and measured.
+
+88
+00:04:17,667 --> 00:04:19,867
+It was built at FORTH-ICS,
+
+89
+00:04:19,867 --> 00:04:25,433
+in its Computational Vision
+and Robotics Laboratory.

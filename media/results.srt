@@ -1,0 +1,405 @@
+1
+00:00:00,700 --> 00:00:03,300
+This is a look at what SEAVISTA measured,
+
+2
+00:00:03,300 --> 00:00:07,033
+a research project built
+at FORTH-ICS and co-funded
+
+3
+00:00:07,033 --> 00:00:11,613
+by Frontex under the Frontex
+Research Grants Programme.
+
+4
+00:00:11,613 --> 00:00:16,118
+Every result here was measured on one
+workstation, with one graphics card.
+
+5
+00:00:16,118 --> 00:00:19,253
+The traffic is two recorded
+days of Danish waters.
+
+6
+00:00:19,253 --> 00:00:25,517
+That is 6.37 million position
+reports, from about 21,900 vessels.
+
+7
+00:00:25,517 --> 00:00:30,934
+So every result that follows was
+earned on real traffic, by one machine.
+
+8
+00:00:30,934 --> 00:00:34,342
+SEAVISTA scores every vessel
+with each report it sends.
+
+9
+00:00:34,342 --> 00:00:39,819
+As first deployed, it carried about
+1,440 vessel updates a second.
+
+10
+00:00:39,819 --> 00:00:44,972
+Two fixes in how requests are batched
+lifted that 4 times, to about 6,000.
+
+11
+00:00:44,972 --> 00:00:48,958
+Grouped into batches, the same
+machine carries 48 times that.
+
+12
+00:00:48,958 --> 00:00:55,262
+At that rate the graphics card
+draws 177 of its 575 watts.
+
+13
+00:00:55,262 --> 00:00:58,467
+So the scoring keeps up with
+busy traffic on one machine,
+
+14
+00:00:58,467 --> 00:01:01,595
+with most of its power in reserve.
+
+15
+00:01:01,595 --> 00:01:06,398
+When a score crosses its threshold,
+an AI agent investigates the case.
+
+16
+00:01:06,398 --> 00:01:10,534
+We sent 16 cases at once, on
+parallel inference capacity.
+
+17
+00:01:10,534 --> 00:01:16,313
+With one worker, the median case waited
+455 seconds before it was opened.
+
+18
+00:01:16,313 --> 00:01:19,225
+With 16 workers it waited under a second.
+
+19
+00:01:19,225 --> 00:01:21,867
+Each investigation still
+took about a minute,
+
+20
+00:01:21,867 --> 00:01:25,787
+so more capacity is more
+of the same workers.
+
+21
+00:01:25,787 --> 00:01:28,940
+Every score is calibrated,
+so it means what it says.
+
+22
+00:01:28,940 --> 00:01:30,367
+On held out traffic,
+
+23
+00:01:30,367 --> 00:01:33,867
+the share of reports flagged
+matches the share it is set to,
+
+24
+00:01:33,867 --> 00:01:36,371
+within 1.3 percentage points.
+
+25
+00:01:36,371 --> 00:01:39,000
+So the scoring layer
+is set wide on purpose,
+
+26
+00:01:39,000 --> 00:01:41,979
+and how wide is a measured choice.
+
+27
+00:01:41,979 --> 00:01:45,231
+The agent stands between
+those flags and the officer.
+
+28
+00:01:45,231 --> 00:01:49,638
+We ran it over two labelled sets of
+ordinary traffic, three times each.
+
+29
+00:01:49,638 --> 00:01:54,327
+Out of 72 and 69 cases, no
+false alarm reached the officer.
+
+30
+00:01:54,327 --> 00:02:00,200
+Across the three runs, 56 of the 58
+cases got the same answer every time.
+
+31
+00:02:00,200 --> 00:02:03,837
+The two that changed are
+cases no named reason covers.
+
+32
+00:02:03,837 --> 00:02:09,820
+So the officer's queue holds real cases,
+and the same case gets the same answer.
+
+33
+00:02:09,820 --> 00:02:13,833
+We timed each alert from the signal
+arriving to an officer seeing it,
+
+34
+00:02:13,833 --> 00:02:15,569
+with every queue counted in.
+
+35
+00:02:15,569 --> 00:02:18,853
+Over 20 alerts, the
+median was 84.3 seconds.
+
+36
+00:02:18,853 --> 00:02:21,900
+The slowest took 156.3 seconds.
+
+37
+00:02:21,900 --> 00:02:26,093
+In that time the agent has gathered
+the evidence and written the case up.
+
+38
+00:02:26,093 --> 00:02:31,357
+So the officer starts each case already
+written up, minutes after the signal.
+
+39
+00:02:31,357 --> 00:02:34,856
+Every decision the agent makes
+cites its reasons, by name.
+
+40
+00:02:34,856 --> 00:02:38,551
+In every labelled case, each
+reason that applied was cited.
+
+41
+00:02:38,551 --> 00:02:42,567
+A person gives the final verdict on
+every case in the officer's queue,
+
+42
+00:02:42,567 --> 00:02:44,436
+and that was checked end to end.
+
+43
+00:02:44,436 --> 00:02:47,293
+So any call can be traced
+back to why it was made.
+
+44
+00:02:47,293 --> 00:02:50,567
+The explanations were also
+put to an open survey,
+
+45
+00:02:50,567 --> 00:02:53,070
+with the same situation shown two ways.
+
+46
+00:02:53,070 --> 00:02:55,633
+One version carried the full explanation,
+
+47
+00:02:55,633 --> 00:02:58,033
+its reasons and what
+would change the call.
+
+48
+00:02:58,033 --> 00:02:59,428
+The other left it out.
+
+49
+00:02:59,428 --> 00:03:02,267
+Which version each person saw was random,
+
+50
+00:03:02,267 --> 00:03:03,600
+entry by entry,
+
+51
+00:03:03,600 --> 00:03:06,980
+over 23 entries and 319 ratings.
+
+52
+00:03:06,980 --> 00:03:08,700
+With the full explanation,
+
+53
+00:03:08,700 --> 00:03:12,067
+86.5 percent of ratings were confident,
+
+54
+00:03:12,067 --> 00:03:14,556
+clearly more than for
+the same case without it.
+
+55
+00:03:14,556 --> 00:03:17,033
+The survey also set two traps.
+
+56
+00:03:17,033 --> 00:03:22,030
+One recommendation was deliberately wrong,
+and one investigation account was made up.
+
+57
+00:03:22,030 --> 00:03:25,433
+Both were rated as
+confidently as the sound ones.
+
+58
+00:03:25,433 --> 00:03:29,855
+An explanation raises confidence,
+whether the call is right or wrong.
+
+59
+00:03:29,855 --> 00:03:33,167
+The survey measured what each
+feature does to confidence,
+
+60
+00:03:33,167 --> 00:03:35,916
+and that lesson holds for any AI at sea.
+
+61
+00:03:35,916 --> 00:03:41,458
+SEAVISTA is built as a tool in a person's
+hands, with every reason in view.
+
+62
+00:03:41,458 --> 00:03:45,884
+A single model was trained on all
+four national AIS datasets together.
+
+63
+00:03:45,884 --> 00:03:49,567
+On Danish water its error is 13.3 metres,
+
+64
+00:03:49,567 --> 00:03:53,792
+against 38.8 for a model
+trained on Danish water alone.
+
+65
+00:03:53,792 --> 00:03:56,033
+The small datasets gain the most,
+
+66
+00:03:56,033 --> 00:03:59,068
+because they borrow how vessels
+move from the large ones.
+
+67
+00:03:59,068 --> 00:04:04,885
+So a sea with little data of its own still
+gets a model that knows how ships move.
+
+68
+00:04:04,885 --> 00:04:08,978
+A new sea area is folded in with
+one full refresh of the models.
+
+69
+00:04:08,978 --> 00:04:11,800
+On one workstation that
+takes under 4 hours,
+
+70
+00:04:11,800 --> 00:04:14,704
+and refitting one region
+takes about 30 minutes.
+
+71
+00:04:14,704 --> 00:04:19,138
+So adding a new sea is an
+afternoon's work on one machine.
+
+72
+00:04:19,138 --> 00:04:23,004
+Then the whole chain ran end to
+end on the two recorded days.
+
+73
+00:04:23,004 --> 00:04:27,395
+In the busiest window it ran
+53 times faster than real time.
+
+74
+00:04:27,395 --> 00:04:30,900
+That is at least 15 times
+the rate the reports arrive,
+
+75
+00:04:30,900 --> 00:04:33,120
+with its resources capped on purpose.
+
+76
+00:04:33,120 --> 00:04:37,878
+So the whole chain runs far ahead
+of the rate real traffic arrives.
+
+77
+00:04:37,878 --> 00:04:39,767
+When a vessel goes quiet for a while,
+
+78
+00:04:39,767 --> 00:04:42,550
+the tracker has to know
+it when it reports again.
+
+79
+00:04:42,550 --> 00:04:46,831
+It matches on motion alone, with
+the vessel's own identity held back.
+
+80
+00:04:46,831 --> 00:04:53,724
+Across 307,035 such gaps, it switched
+identity 0.10 times per hour of track.
+
+81
+00:04:53,724 --> 00:04:56,767
+With nineteen in every
+twenty reports removed,
+
+82
+00:04:56,767 --> 00:04:59,807
+it still holds a vessel
+to within 3 to 5 metres.
+
+83
+00:04:59,807 --> 00:05:02,667
+So a vessel that goes
+quiet keeps its identity,
+
+84
+00:05:02,667 --> 00:05:05,833
+and its path through
+the gap is still known.
+
+85
+00:05:05,833 --> 00:05:08,800
+SEAVISTA was built at FORTH-ICS,
+
+86
+00:05:08,800 --> 00:05:14,333
+in its Computational Vision
+and Robotics Laboratory.

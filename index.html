@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SEAVISTA</title>
+<meta name="description" content="SEAVISTA, a research project at FORTH-ICS and CVRL, co-funded by Frontex under the Frontex Research Grants Programme.">
+<style>
+  /* The videos' own tokens (remotion/src/theme.ts), so a frame and the page read as one system. */
+  @font-face { font-family: Plex; src: url(assets/IBMPlexSans-Regular.ttf); font-weight: 400; }
+  @font-face { font-family: Plex; src: url(assets/IBMPlexSans-SemiBold.ttf); font-weight: 600; }
+  @font-face { font-family: Plex; src: url(assets/IBMPlexSans-Bold.ttf); font-weight: 700; }
+  @font-face { font-family: PlexMono; src: url(assets/IBMPlexMono-Regular.ttf); }
+  :root {
+    --bg: #080c13; --panel: #111824; --line: #1f2a38; --fg: #e8eef6; --dim: #9fb0c4; --faint: #708297;
+    --acc: #3d8bff; --accText: #7fb0ff; --warm: #ffb23d; --bandBg: #e9eef5; --bandFg: #0d1b2a; --foot: #050810;
+    --max: 1180px;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.55 Plex, system-ui, sans-serif; }
+  a { color: var(--accText); }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+
+  /* the band: light, the builders on the right, closed by the accent rule */
+  header.band { background: var(--bandBg); color: var(--bandFg); border-bottom: 3px solid var(--acc); }
+  header.band .wrap { display: flex; align-items: center; gap: 16px; height: 64px; }
+  header.band .name { font-weight: 700; font-size: 20px; letter-spacing: .02em; }
+  header.band .marks { margin-left: auto; display: flex; align-items: center; gap: 18px; }
+  header.band .marks img { height: 30px; display: block; }
+  .lang { display: flex; gap: 2px; margin-left: 12px; }
+  .lang button { font: 600 13px Plex, sans-serif; color: var(--bandFg); background: transparent; border: 1px solid #b9c4d2;
+                 padding: 3px 8px; cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--bandFg); color: var(--bandBg); border-color: var(--bandFg); }
+
+  /* hero: the live traffic loop under the subject */
+  .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+  .hero video { display: block; width: 100%; aspect-ratio: 1280 / 571; object-fit: cover; opacity: .75; }
+  .hero .over { position: absolute; inset: 0; display: flex; align-items: flex-end;
+                background: linear-gradient(to top, rgba(8,12,19,.92) 0%, rgba(8,12,19,.2) 55%, transparent 80%); }
+  .hero .over .wrap { width: 100%; padding-bottom: clamp(20px, 4vw, 48px); }
+  .hero h1 { margin: 0; font-size: clamp(30px, 5.4vw, 64px); line-height: 1.05; font-weight: 700; }
+  .hero p { margin: 10px 0 0; color: var(--dim); font-size: clamp(15px, 1.7vw, 20px); max-width: 46em; }
+
+  section { padding: 48px 0 8px; }
+  h2 { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accText); margin: 0 0 18px; }
+  .about { display: grid; grid-template-columns: 1fr; gap: 0 40px; }
+  .about p { margin: 0 0 16px; max-width: 40em; }
+  .about p.fund { color: var(--dim); font-size: 15px; }
+
+  /* figures: Mono is the measured register */
+  .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--line);
+          border: 1px solid var(--line); margin: 8px 0 0; }
+  .fig { background: var(--panel); padding: 16px 18px; }
+  .fig .k { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--faint); }
+  .fig .v { font: 30px/1.2 PlexMono, monospace; color: var(--fg); margin: 6px 0 4px; }
+  .fig .d { font-size: 14px; color: var(--dim); line-height: 1.4; }
+
+  /* the videos */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 20px; }
+  .card { background: var(--panel); border: 1px solid var(--line); display: flex; flex-direction: column; }
+  .card .media { position: relative; aspect-ratio: 1280 / 571; background: #000; cursor: pointer; }
+  .card .media video, .card .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .play { position: absolute; left: 14px; bottom: 12px; font: 600 13px Plex, sans-serif; color: var(--fg);
+                background: rgba(5,8,16,.8); border: 1px solid var(--acc); padding: 5px 12px; }
+  .card .media.full { cursor: default; aspect-ratio: 16 / 9; }
+  .card .body { padding: 14px 18px 18px; }
+  .card h3 { margin: 0 0 6px; font-size: 21px; font-weight: 600; }
+  .card .len { font: 13px PlexMono, monospace; color: var(--faint); margin-left: 8px; font-weight: 400; }
+  .card p { margin: 0; color: var(--dim); font-size: 15px; }
+  .note { color: var(--faint); font-size: 14px; margin: 14px 0 0; }
+
+  footer { margin-top: 56px; background: var(--foot); border-top: 1px solid var(--line); }
+  footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; padding: 22px 16px; }
+  footer .fundline { color: var(--dim); font-size: 14px; max-width: 34em; }
+  footer img { height: 34px; display: block; margin-left: auto; }
+  @media (max-width: 640px) {
+    header.band .marks img { height: 22px; }
+    header.band .marks { gap: 10px; }
+    .grid { grid-template-columns: 1fr; }
+    .card .media.full { aspect-ratio: 16 / 9; }
+    footer img { margin-left: 0; }
+  }
+  [lang-only] { display: none; }
+</style>
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <span class="name">SEAVISTA</span>
+    <span class="marks">
+      <img src="assets/FORTH-ICS.png" alt="FORTH-ICS">
+      <img src="assets/CVRL.png" alt="CVRL">
+    </span>
+    <span class="lang" role="group" aria-label="Language">
+      <button data-lang="el">ΕΛ</button><button data-lang="en">EN</button>
+    </span>
+  </div>
+</header>
+
+<div class="hero">
+  <video id="hero" src="loops/hero.mp4" poster="loops/hero.jpg" autoplay muted loop playsinline></video>
+  <div class="over"><div class="wrap">
+    <h1 data-t="hero_h"></h1>
+    <p data-t="hero_p"></p>
+  </div></div>
+</div>
+
+<main class="wrap">
+  <section class="about">
+    <h2 data-t="about_h"></h2>
+    <p data-t="about_1"></p>
+    <p data-t="about_2"></p>
+    <div class="figs">
+      <div class="fig"><div class="k" data-t="f1k"></div><div class="v">6,000/s</div><div class="d" data-t="f1d"></div></div>
+      <div class="fig"><div class="k" data-t="f2k"></div><div class="v">84s</div><div class="d" data-t="f2d"></div></div>
+      <div class="fig"><div class="k" data-t="f3k"></div><div class="v">0</div><div class="d" data-t="f3d"></div></div>
+      <div class="fig"><div class="k" data-t="f4k"></div><div class="v">&lt;4h</div><div class="d" data-t="f4d"></div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 data-t="videos_h"></h2>
+    <div class="grid" id="videos"></div>
+    <p class="note" data-t="videos_note"></p>
+  </section>
+
+  <section class="about">
+    <p class="fund" data-t="built"></p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="fundline" data-t="funding"></span>
+    <img src="assets/FRONTEX-rev.png" alt="Frontex">
+  </div>
+</footer>
+
+<script>
+const T = {
+  en: {
+    hero_h: "One officer. One sea.",
+    hero_p: "SEAVISTA watches every vessel at sea and hands the officer the few cases worth a look, already investigated.",
+    about_h: "The project",
+    about_1: "SEAVISTA scores every vessel with each position report it sends, against a model of how ships normally move, learned from recorded traffic. An AI agent investigates what those scores raise and hands the officer a case that is already explained, with the reasons it cites and what would have changed the call. The officer makes the call on every case.",
+    about_2: "One workstation carries about 6,000 vessel updates a second. An alert reached a person in a median of 84 seconds, and across 72 and 69 cases of ordinary traffic no false alarm reached the officer. One model learned four national sea areas at once, and a new sea area is added in under four hours.",
+    f1k: "Throughput", f1d: "vessel updates a second, every one a full pass through the models, on one workstation",
+    f2k: "Latency", f2d: "median time from the signal to an investigated case in front of a person",
+    f3k: "Quiet", f3d: "false alarms reaching the officer, across 72 and 69 cases of ordinary traffic",
+    f4k: "New sea area", f4d: "to fold a new sea area into the models, on one workstation",
+    videos_h: "The videos",
+    videos_note: "The videos are in English, with the captions burned in, so they also play muted.",
+    play: "▶ Play",
+    built: "SEAVISTA was built at the Computational Vision and Robotics Laboratory (CVRL) of the Institute of Computer Science, FORTH. Danish waters are the example throughout. Other sea areas are added the same way.",
+    funding: "Co-funded by Frontex under the Frontex Research Grants Programme",
+  },
+  el: {
+    hero_h: "Ένας αξιωματικός. Μία θάλασσα.",
+    hero_p: "Το SEAVISTA παρακολουθεί κάθε σκάφος στη θάλασσα και παραδίδει στον αξιωματικό τις λίγες υποθέσεις που αξίζουν προσοχή, ήδη διερευνημένες.",
+    about_h: "Το έργο",
+    about_1: "Το SEAVISTA βαθμολογεί κάθε σκάφος με κάθε αναφορά θέσης που στέλνει, σε σχέση με ένα μοντέλο του πώς κινούνται συνήθως τα πλοία, που έχει μάθει από καταγεγραμμένη κίνηση. Ένας πράκτορας τεχνητής νοημοσύνης διερευνά ό,τι ξεχωρίζουν οι βαθμολογίες και παραδίδει στον αξιωματικό μια υπόθεση ήδη τεκμηριωμένη, με τους λόγους που την στηρίζουν και με το τι θα άλλαζε την εκτίμηση. Την απόφαση για κάθε υπόθεση την παίρνει ο αξιωματικός.",
+    about_2: "Ένας σταθμός εργασίας επεξεργάζεται περίπου 6.000 ενημερώσεις σκαφών το δευτερόλεπτο. Μια ειδοποίηση έφτασε σε άνθρωπο σε διάμεσο χρόνο 84 δευτερολέπτων, και σε 72 και 69 περιπτώσεις συνήθους κίνησης κανένας ψευδής συναγερμός δεν έφτασε στον αξιωματικό. Ένα ενιαίο μοντέλο εκπαιδεύτηκε ταυτόχρονα σε τέσσερις εθνικές θαλάσσιες περιοχές, και μια νέα περιοχή προστίθεται σε λιγότερο από τέσσερις ώρες.",
+    f1k: "Ρυθμός", f1d: "ενημερώσεις σκαφών το δευτερόλεπτο, καθεμία με πλήρη διέλευση από τα μοντέλα, σε έναν σταθμό εργασίας",
+    f2k: "Χρόνος", f2d: "διάμεσος χρόνος από το σήμα ως μια διερευνημένη υπόθεση μπροστά σε άνθρωπο",
+    f3k: "Ησυχία", f3d: "ψευδείς συναγερμοί προς τον αξιωματικό, σε 72 και 69 περιπτώσεις συνήθους κίνησης",
+    f4k: "Νέα περιοχή", f4d: "για να ενταχθεί μια νέα θαλάσσια περιοχή στα μοντέλα, σε έναν σταθμό εργασίας",
+    videos_h: "Τα βίντεο",
+    videos_note: "Τα βίντεο είναι στα αγγλικά, με ενσωματωμένους υπότιτλους, ώστε να παίζουν και χωρίς ήχο.",
+    play: "▶ Αναπαραγωγή",
+    built: "Το SEAVISTA αναπτύχθηκε στο Εργαστήριο Υπολογιστικής Όρασης και Ρομποτικής (CVRL) του Ινστιτούτου Πληροφορικής του ΙΤΕ. Τα ύδατα της Δανίας είναι παντού το παράδειγμα. Άλλες θαλάσσιες περιοχές προστίθενται με τον ίδιο τρόπο.",
+    funding: "Συγχρηματοδοτείται από τον Frontex στο πλαίσιο του Frontex Research Grants Programme",
+  },
+};
+
+let lang = new URLSearchParams(location.search).get("lang")
+        || ((navigator.language || "").startsWith("el") ? "el" : "en");
+let manifest = null;
+const mmss = s => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
+
+function render() {
+  document.documentElement.lang = lang;
+  for (const el of document.querySelectorAll("[data-t]")) el.textContent = T[lang][el.dataset.t];
+  for (const b of document.querySelectorAll(".lang button")) b.setAttribute("aria-pressed", b.dataset.lang === lang);
+  if (!manifest) return;
+  for (const v of manifest.videos) {
+    const card = document.getElementById("v-" + v.id);
+    card.querySelector("h3 .t").textContent = v.title[lang];
+    card.querySelector("p").textContent = v.blurb[lang];
+    const play = card.querySelector(".play"); if (play) play.textContent = T[lang].play;
+  }
+}
+
+async function load() {
+  manifest = await (await fetch("videos.json")).json();
+  const grid = document.getElementById("videos");
+  for (const v of manifest.videos) {
+    const meta = await fetch(`media/${v.id}.json`).then(r => r.ok ? r.json() : null).catch(() => null);
+    const card = document.createElement("article");
+    card.className = "card"; card.id = "v-" + v.id;
+    const preview = v.loop_name
+      ? `<video src="loops/${v.loop_name}.mp4" poster="loops/${v.loop_name}.jpg" muted loop playsinline autoplay preload="metadata"></video>`
+      : `<img src="media/${v.id}.jpg" alt="">`;
+    card.innerHTML = `<div class="media">${preview}<span class="play"></span></div>
+      <div class="body"><h3><span class="t"></span>${meta ? `<span class="len">${mmss(meta.seconds)}</span>` : ""}</h3><p></p></div>`;
+    card.querySelector(".media").addEventListener("click", e => {
+      const m = e.currentTarget; if (m.classList.contains("full")) return;
+      for (const other of document.querySelectorAll(".media.full video")) other.pause();
+      m.classList.add("full");
+      m.innerHTML = `<video src="media/${v.id}.mp4" poster="media/${v.id}.jpg" controls autoplay playsinline preload="auto"></video>`;
+    });
+    grid.append(card);
+  }
+  render();
+}
+
+for (const b of document.querySelectorAll(".lang button"))
+  b.addEventListener("click", () => { lang = b.dataset.lang; render(); history.replaceState(null, "", "?lang=" + lang); });
+// a viewer who asked the OS for less motion gets the stills
+if (matchMedia("(prefers-reduced-motion: reduce)").matches)
+  document.addEventListener("play", e => { if (e.target.loop) e.target.pause(); }, true);
+render(); load();
+</script>
+</body>
+</html>

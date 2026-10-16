@@ -1,0 +1,336 @@
+1
+00:00:00,700 --> 00:00:03,800
+This is a close look at
+one part of SEAVISTA,
+
+2
+00:00:03,800 --> 00:00:07,533
+a research project built
+at FORTH-ICS and co-funded
+
+3
+00:00:07,533 --> 00:00:12,141
+by Frontex under the Frontex
+Research Grants Programme.
+
+4
+00:00:12,141 --> 00:00:17,000
+SEAVISTA gives every vessel at sea a
+score for how unusual its behaviour is,
+
+5
+00:00:17,000 --> 00:00:19,174
+updated with each report it sends.
+
+6
+00:00:19,174 --> 00:00:24,175
+An AI agent investigates what those
+scores raise, and briefs the officer.
+
+7
+00:00:24,175 --> 00:00:26,833
+To do that, it needs
+the ledger of the sea.
+
+8
+00:00:26,833 --> 00:00:31,257
+Each track and each score, now and in
+the past, and the models themselves.
+
+9
+00:00:31,257 --> 00:00:33,700
+The awareness server keeps that ledger.
+
+10
+00:00:33,700 --> 00:00:36,400
+It reaches the agent over MCP,
+
+11
+00:00:36,400 --> 00:00:41,472
+the open standard that AI agents
+use to reach tools and data.
+
+12
+00:00:41,472 --> 00:00:43,833
+When a vessel's score crosses a threshold,
+
+13
+00:00:43,833 --> 00:00:47,003
+the agent is called in to work
+out why it moved that way.
+
+14
+00:00:47,003 --> 00:00:49,067
+Each case needs different evidence,
+
+15
+00:00:49,067 --> 00:00:52,290
+so the agent chooses what
+to look at, case by case.
+
+16
+00:00:52,290 --> 00:00:55,554
+The usual way is many
+small tools, one step each.
+
+17
+00:00:55,554 --> 00:01:00,025
+Then every step goes through the agent,
+and keeps it busy for no good reason.
+
+18
+00:01:00,025 --> 00:01:02,133
+It costs accuracy, too.
+
+19
+00:01:02,133 --> 00:01:05,667
+An agent copying numbers as
+text keeps only a few decimals,
+
+20
+00:01:05,667 --> 00:01:08,314
+and cuts long lists short.
+
+21
+00:01:08,314 --> 00:01:10,900
+The awareness server
+is built the other way.
+
+22
+00:01:10,900 --> 00:01:13,929
+Its one tool for analysis
+takes a whole program.
+
+23
+00:01:13,929 --> 00:01:16,200
+The agent writes a few lines of Python,
+
+24
+00:01:16,200 --> 00:01:18,333
+in a small vocabulary of query,
+
+25
+00:01:18,333 --> 00:01:19,833
+forecast, score,
+
+26
+00:01:19,833 --> 00:01:21,098
+draw and report.
+
+27
+00:01:21,098 --> 00:01:23,700
+The server runs the
+program beside the data,
+
+28
+00:01:23,700 --> 00:01:26,033
+where every number keeps its decimals.
+
+29
+00:01:26,033 --> 00:01:31,223
+Only what the program reports
+comes back, as text and pictures.
+
+30
+00:01:31,223 --> 00:01:34,933
+An officer can also call the
+agent in, with a question.
+
+31
+00:01:34,933 --> 00:01:37,346
+Which ships met another
+vessel at sea today?
+
+32
+00:01:37,346 --> 00:01:41,082
+The scores rate one vessel at
+a time. A meeting takes two.
+
+33
+00:01:41,082 --> 00:01:44,424
+So the agent writes the
+search itself, in one program.
+
+34
+00:01:44,424 --> 00:01:47,067
+It runs over all the recorded traffic,
+
+35
+00:01:47,067 --> 00:01:51,374
+and lists each pair of vessels
+that stayed close while under way.
+
+36
+00:01:51,374 --> 00:01:56,059
+To see where the pairs are, the agent
+draws them on a map. The first try fails.
+
+37
+00:01:56,059 --> 00:01:59,979
+The error says what the map needs,
+in words the agent can act on.
+
+38
+00:01:59,979 --> 00:02:03,718
+It gives the map its
+bounds, and draws it again.
+
+39
+00:02:03,718 --> 00:02:06,967
+Half the pairs sit in one
+circle, around Gothenburg.
+
+40
+00:02:06,967 --> 00:02:10,657
+The agent draws that circle up
+close, with the ports around it.
+
+41
+00:02:10,657 --> 00:02:13,767
+The tracks run back and forth
+between ferry terminals,
+
+42
+00:02:13,767 --> 00:02:15,773
+in the city and out to the islands.
+
+43
+00:02:15,773 --> 00:02:18,296
+The search counted those
+ferries as meetings.
+
+44
+00:02:18,296 --> 00:02:20,767
+The agent sees that in its own picture,
+
+45
+00:02:20,767 --> 00:02:24,026
+and marks them as ferries in
+the list it gives the officer.
+
+46
+00:02:24,026 --> 00:02:27,051
+It sorts the rest by what
+kind of vessel each one is.
+
+47
+00:02:27,051 --> 00:02:30,167
+Pilot boats come alongside
+ships off Gothenburg,
+
+48
+00:02:30,167 --> 00:02:32,243
+in the Great Belt and in the Sound.
+
+49
+00:02:32,243 --> 00:02:35,346
+Two rescue boats run side
+by side in the Sound.
+
+50
+00:02:35,346 --> 00:02:39,833
+Pairs that report no vessel type
+are ones the agent cannot explain,
+
+51
+00:02:39,833 --> 00:02:42,510
+so it leaves them to the officer.
+
+52
+00:02:42,510 --> 00:02:46,081
+Here is one of them, a pilot
+boat and a tanker in the Sound.
+
+53
+00:02:46,081 --> 00:02:47,467
+To check its reading,
+
+54
+00:02:47,467 --> 00:02:51,300
+the agent draws the pair on a map
+of the shipping lanes and the ports,
+
+55
+00:02:51,300 --> 00:02:54,165
+with an arrow for each heading
+and the times that matter.
+
+56
+00:02:54,165 --> 00:02:57,346
+Beside the map, it charts
+the distance between the two.
+
+57
+00:02:57,346 --> 00:03:02,312
+The pilot boat closes on the tanker, stays
+beside it at its speed, and turns back.
+
+58
+00:03:02,312 --> 00:03:06,194
+The agent looks at both
+pictures before it answers.
+
+59
+00:03:06,194 --> 00:03:09,700
+SEAVISTA also sets aside
+skills for its agents.
+
+60
+00:03:09,700 --> 00:03:13,233
+Each skill notes the pitfalls
+found while exploring the tools,
+
+61
+00:03:13,233 --> 00:03:14,656
+and how to avoid them.
+
+62
+00:03:14,656 --> 00:03:18,454
+Without skills, the agent still
+works, because the tools are enough.
+
+63
+00:03:18,454 --> 00:03:22,372
+Their manual is written from the code,
+and their errors say what to fix.
+
+64
+00:03:22,372 --> 00:03:25,833
+With skills, the agent avoids
+the pitfalls already found,
+
+65
+00:03:25,833 --> 00:03:27,440
+and goes straight to the case.
+
+66
+00:03:27,440 --> 00:03:32,604
+A new model joins as one more
+word, and every program can use it.
+
+67
+00:03:32,604 --> 00:03:36,467
+Queries are read-only SQL
+on the session's own store,
+
+68
+00:03:36,467 --> 00:03:38,617
+and the models are served by Triton.
+
+69
+00:03:38,617 --> 00:03:40,867
+The server holds no state of its own,
+
+70
+00:03:40,867 --> 00:03:44,859
+so more copies of it can
+serve more agents at once.
+
+71
+00:03:44,859 --> 00:03:47,800
+SEAVISTA was built at FORTH-ICS,
+
+72
+00:03:47,800 --> 00:03:53,367
+in its Computational Vision
+and Robotics Laboratory.
