@@ -86,6 +86,20 @@
   .video p { margin: 0; color: var(--dim); font-size: 15px; line-height: 1.5; }
   .note { color: var(--faint); font-size: 14px; margin: 18px 0 0; }
 
+  /* the player: a dialog over the page, closed by Esc, the button or a click outside */
+  #player { padding: 0; border: 1px solid var(--line); background: #000; color: var(--fg);
+            width: min(900px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: hidden; }
+  #player::backdrop { background: rgba(3,5,9,.82); }
+  #player .bar { display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 16px; background: var(--bg); border-bottom: 1px solid var(--line); }
+  #player .t { font-weight: 600; font-size: 16px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #player .bar button { margin-left: auto; font: 600 16px var(--sans); color: var(--fg); background: none; border: 1px solid var(--faint);
+                        width: 36px; height: 32px; cursor: pointer; }
+  #player video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: calc(100vh - 90px); background: #000; }
+  @media (prefers-reduced-motion: no-preference) {
+    #player[open] { animation: pop .18s ease-out; }
+    @keyframes pop { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
+  }
+
   /* ---------------------------------------------------------------- contact */
   .people { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px 28px; }
   .people div { min-width: 0; border-top: 1px solid var(--line); padding-top: 12px; }
@@ -161,6 +175,11 @@
       <a href="https://www.ics.forth.gr/cvrl/" target="_blank" rel="noopener">ics.forth.gr/cvrl</a></p>
   </section>
 </main>
+
+<dialog id="player" aria-label="Video">
+  <div class="bar"><span class="t" id="player-title"></span><button type="button" id="player-close" aria-label="Close">✕</button></div>
+  <video id="player-video" controls playsinline preload="auto"></video>
+</dialog>
 
 <footer>
   <div class="wrap">
@@ -285,12 +304,19 @@ for (const s of STORY) {
   s.row = row; story.append(row);
 }
 
+const player = document.getElementById("player"), pv = document.getElementById("player-video");
 function playVideo(id) {
-  const card = document.getElementById("v-" + id);
-  if (!card) return;
-  card.scrollIntoView({behavior: "smooth", block: "center"});
-  card.querySelector(".media").click();
+  const v = manifest && manifest.videos.find((x) => x.id === id);
+  if (!v) return;
+  document.getElementById("player-title").textContent = v.title[lang];
+  pv.poster = `media/${id}.jpg`;
+  if (!pv.src.endsWith(`media/${id}.mp4`)) pv.src = `media/${id}.mp4`;
+  if (!player.open) player.showModal();
+  pv.play().catch(() => {});
 }
+player.addEventListener("close", () => pv.pause());
+document.getElementById("player-close").addEventListener("click", () => player.close());
+player.addEventListener("click", (e) => { if (e.target === player) player.close(); });
 
 function render() {
   document.documentElement.lang = lang;
@@ -340,12 +366,10 @@ async function load() {
     card.innerHTML = `<div class="media"><img src="media/${v.id}.jpg" alt=""><span class="play"></span></div>
       <div><h3><span class="t"></span>${m ? `<span class="len">${mmss(m.seconds)}</span>` : ""}</h3><p></p>
       ${v.role === "deep" ? `<div class="deepens"></div>` : ""}</div>`;
-    card.querySelector(".media").addEventListener("click", (e) => {
-      const m = e.currentTarget; if (m.classList.contains("full")) return;
-      for (const other of document.querySelectorAll(".media.full video")) other.pause();
-      m.classList.add("full");
-      m.innerHTML = `<video src="media/${v.id}.mp4" poster="media/${v.id}.jpg" controls autoplay playsinline preload="auto"></video>`;
-    });
+    const media = card.querySelector(".media");
+    media.tabIndex = 0; media.setAttribute("role", "button");
+    media.addEventListener("click", () => playVideo(v.id));
+    media.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); playVideo(v.id); } });
     (v.role === "overview" ? document.getElementById("overview") : grid).append(card);
   }
   render();
