@@ -3,12 +3,7 @@
   "name": "problem",
   "film": "hub",
   "at": 1855,
-  "box": [
-   80,
-   120,
-   1620,
-   890
-  ]
+  "ground": true
  },
  {
   "name": "normal",
