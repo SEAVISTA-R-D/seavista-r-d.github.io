@@ -32,5 +32,5 @@ PY
       ff -ss $((b+3)) -i $src -frames:v 1 -vf "$CROP" -q:v 3 $S/loops/$c.jpg; }; fi
 done; ok
 step "fonts and marks"
-cp -u $V/assets/fonts/*.ttf $V/assets/logos/{FORTH-ICS.png,CVRL.png,FRONTEX-rev.png,FRONTEX.png} $S/assets/; ok
+cp -u $V/assets/logos/{FORTH-ICS.png,CVRL.png,FRONTEX-rev.png,FRONTEX.png} $S/assets/; ok
 du -sh $S/media $S/loops
