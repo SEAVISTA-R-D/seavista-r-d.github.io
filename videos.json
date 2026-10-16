@@ -53,9 +53,5 @@
         "el": "Ο πράκτορας τεχνητής νοημοσύνης γράφει ένα μικρό πρόγραμμα για κάθε υπόθεση, το εκτελεί πάνω στην καταγεγραμμένη κίνηση και διαβάζει τους δικούς του χάρτες και διαγράμματα."
       }
     }
-  ],
-  "hero": {
-    "render": "site-ambient",
-    "_note": "remotion composition in the videos repo; render it there to remotion/out/site-ambient.mp4"
-  }
+  ]
 }
