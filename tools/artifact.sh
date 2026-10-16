@@ -15,7 +15,7 @@ for id in $ids; do i=$((i+1)); progress $i $n "$id"
   cp $S/media/$id.{jpg,json} $O/media/
 done; ok
 step "page"
-rm -rf $O/loops $O/story; mkdir -p $O/story; cp $S/story/*.jpg $O/story/; cp $S/assets/*.png $O/assets/; cp $S/videos.json $O/
+rm -rf $O/loops $O/story; mkdir -p $O/story; cp $S/story/*.webp $O/story/; cp $S/assets/*.png $O/assets/; cp $S/videos.json $O/
 python3 - $S/index.html $O/index.html <<'PY'
 import re,sys
 s=open(sys.argv[1]).read()

@@ -47,15 +47,16 @@
   .turn p { margin: 0 0 14px; max-width: 34em; }
   .turn p:last-child { margin-bottom: 0; }
   .turn figure { margin: 0; min-width: 0; }
-  .turn figure img { display: block; width: 100%; height: auto; max-width: 100%;
-    /* fade every edge into the page, so the slide has no frame */
+  .turn figure img { display: block; width: 100%; height: auto; max-width: 100%; }
+  /* a drawing that stands on its own sea fades it into the page at every edge */
+  .turn figure img.bleed {
     -webkit-mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
                         linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
     -webkit-mask-composite: source-in;
             mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
                         linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
             mask-composite: intersect; }
-  .turn figcaption { margin-top: 6px; font-size: 14px; color: var(--faint); padding-inline: 7%; }
+  .turn figcaption { margin-top: 10px; font-size: 14px; color: var(--faint); }
   .turn figcaption button { all: unset; cursor: pointer; color: var(--accText); }
   .turn figcaption button:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 
@@ -209,7 +210,7 @@
  * lifted from, and a caption says so when the graphic's numbers are an illustration.
  */
 const STORY = [
-  {img: "problem", from: "hub",
+  {img: "problem", from: "hub", bleed: true,
    en: {h: "The problem",
         p: ["Every vessel at sea reports where it is, every few seconds. Watching that by rule means writing a limit for each case somebody has already thought of.",
             "Set the limit loose and the case is missed. Set it tight and the desk fills with false alarms. Every new trick needs a new rule, written after it has worked."],
@@ -256,11 +257,11 @@ const STORY = [
         c: "Οι λόγοι, στο βίντεο για όσα μετρήσαμε."}},
   {img: "seas", from: "results",
    en: {h: "A new sea area, learned in under four hours",
-        p: ["All of it runs on one workstation. It carries about 6,000 vessel updates a second, each a full pass through every model, and about 48 times that with requests grouped into batches.",
+        p: ["The whole prototype runs on one workstation. In our measurements it carried about 6,000 vessel updates a second, each a full pass through every model, and about 48 times that with requests grouped into batches.",
             "One model learned four national sea areas at once. On Danish water it beats the model trained on Danish water alone, 13.3 m against 38.8 m in mean curve error. Adding a sea area takes one full refresh of the model, under four hours on the same workstation."],
         c: "Four national sea areas, one model, in the video on what we measured. Recorded traffic from the [Danish Maritime Authority](https://www.dma.dk/safety-at-sea/navigational-information/ais-data), [NOAA Marine Cadastre](https://hub.marinecadastre.gov/pages/vesseltraffic), [Fintraffic Digitraffic](https://www.digitraffic.fi/en/marine-traffic/) and DTU."},
    el: {h: "Νέα θαλάσσια περιοχή στο μοντέλο σε λιγότερο από τέσσερις ώρες",
-        p: ["Όλο το σύστημα τρέχει σε έναν σταθμό εργασίας. Επεξεργάζεται περίπου 6.000 ενημερώσεις σκαφών το δευτερόλεπτο, καθεμία με πλήρη διέλευση από όλα τα μοντέλα, και περίπου 48 φορές περισσότερες όταν τα αιτήματα ομαδοποιούνται σε δέσμες.",
+        p: ["Όλο το πρωτότυπο τρέχει σε έναν σταθμό εργασίας. Στις μετρήσεις μας επεξεργάστηκε περίπου 6.000 ενημερώσεις σκαφών το δευτερόλεπτο, καθεμία με πλήρη διέλευση από όλα τα μοντέλα, και περίπου 48 φορές περισσότερες όταν τα αιτήματα ομαδοποιήθηκαν σε δέσμες.",
             "Ένα μοντέλο έμαθε ταυτόχρονα τέσσερις εθνικές θαλάσσιες περιοχές. Στα δανικά ύδατα ξεπερνά το μοντέλο που εκπαιδεύτηκε μόνο σε αυτά, 13,3 m έναντι 38,8 m μέσου σφάλματος καμπύλης. Η προσθήκη μιας θαλάσσιας περιοχής απαιτεί μία πλήρη επανεκπαίδευση του μοντέλου, λιγότερο από τέσσερις ώρες στον ίδιο σταθμό εργασίας."],
         c: "Τέσσερις εθνικές θαλάσσιες περιοχές, ένα μοντέλο, στο βίντεο για όσα μετρήσαμε. Καταγεγραμμένη κυκλοφορία από τη [Δανική Ναυτιλιακή Αρχή](https://www.dma.dk/safety-at-sea/navigational-information/ais-data), το [NOAA Marine Cadastre](https://hub.marinecadastre.gov/pages/vesseltraffic), το [Fintraffic Digitraffic](https://www.digitraffic.fi/en/marine-traffic/) και το DTU."}},
 ];
@@ -268,7 +269,7 @@ const STORY = [
 const T = {
   en: {
     claim: "The agent works the case. The officer decides.",
-    lead: "SEAVISTA checks every position report ships broadcast against how ships usually move there. An AI agent investigates anomalous behaviour, and the officer on watch gets a short list of cases with the evidence already gathered. A research prototype built at [FORTH-ICS](https://www.ics.forth.gr/) and [CVRL](https://www.ics.forth.gr/cvrl/).",
+    lead: "SEAVISTA is a twelve-month research project at [FORTH-ICS](https://www.ics.forth.gr/) and [CVRL](https://www.ics.forth.gr/cvrl/). It built and tested a system that checks every position report ships broadcast against how ships usually move there. An AI agent investigates anomalous behaviour, and the officer on watch gets a short list of cases with the evidence already gathered.",
     watch: "Watch it",
     cta: "Watch the overview",
     start_h: "Videos",
@@ -287,7 +288,7 @@ const T = {
   },
   el: {
     claim: "Ο AI agent διερευνά την περίπτωση. Ο αξιωματικός αποφασίζει.",
-    lead: "Το SEAVISTA ελέγχει κάθε αναφορά θέσης που εκπέμπουν τα πλοία σε σχέση με το πώς κινούνται συνήθως τα πλοία στην περιοχή. Ένας AI agent διερευνά την ασυνήθιστη συμπεριφορά και ο αξιωματικός βάρδιας λαμβάνει μια σύντομη λίστα περιπτώσεων, με τα στοιχεία ήδη συγκεντρωμένα. Ένα ερευνητικό πρωτότυπο του [ΙΠ-ΙΤΕ](https://www.ics.forth.gr/) και του [CVRL](https://www.ics.forth.gr/cvrl/).",
+    lead: "Το SEAVISTA είναι ένα δωδεκάμηνο ερευνητικό έργο του [ΙΠ-ΙΤΕ](https://www.ics.forth.gr/) και του [CVRL](https://www.ics.forth.gr/cvrl/). Ανέπτυξε και δοκίμασε ένα σύστημα που ελέγχει κάθε αναφορά θέσης που εκπέμπουν τα πλοία σε σχέση με το πώς κινούνται συνήθως τα πλοία στην περιοχή. Ένας AI agent διερευνά την ασυνήθιστη συμπεριφορά και ο αξιωματικός βάρδιας λαμβάνει μια σύντομη λίστα περιπτώσεων, με τα στοιχεία ήδη συγκεντρωμένα.",
     watch: "Δείτε το",
     cta: "Δείτε την επισκόπηση",
     start_h: "Βίντεο",
@@ -331,7 +332,7 @@ for (const s of STORY) {
   const row = document.createElement("article");
   row.className = "turn"; row.id = "turn-" + s.img;
   row.innerHTML = `<div class="text"><h2><a href="#turn-${s.img}"></a></h2></div>
-    <figure><img src="story/${s.img}.jpg" alt=""><figcaption><span></span> <button type="button"></button></figcaption></figure>`;
+    <figure><img src="story/${s.img}.webp"${s.bleed ? ' class="bleed"' : ""} alt=""><figcaption><span></span> <button type="button"></button></figcaption></figure>`;
   row.querySelector("button").addEventListener("click", () => playVideo(s.from));
   s.row = row; story.append(row);
 }
