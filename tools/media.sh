@@ -11,14 +11,15 @@ CROP="crop=1920:856:0:88,scale=1280:-2"   # the stage: below the 86 px band, abo
 mapfile -t ROWS < <(python3 -c "
 import json; m=json.load(open('$S/videos.json'))
 for v in m['videos']: print(v['id'], v.get('loop_at') or '-', v.get('loop_name') or '-')
-h=m.get('hero'); print('HERO', h['id'], h['at']) if h else None")
+h=m.get('hero'); print('HERO', h['render'], 0) if h else None")
 n=${#ROWS[@]}; mkdir -p $S/media $S/loops $S/assets
 flow "Encode media for the page" 2
 step "videos"; i=0
 for r in "${ROWS[@]}"; do read a b c <<<"$r"; i=$((i+1)); progress $i $n "$a $b"
-  if [ "$a" = HERO ]; then src=$V/episodes/$b/$b.mp4; out=$S/loops/hero.mp4
-    fresh $out $src || { ff -ss $c -t 8 -i $src -an -vf "$CROP" -c:v libx264 -crf 23 -preset slow -pix_fmt yuv420p -movflags +faststart $out
-      ff -ss $c -i $src -frames:v 1 -vf "$CROP" -q:v 3 $S/loops/hero.jpg; }; continue; fi
+  if [ "$a" = HERO ]; then src=$V/remotion/out/$b.mp4; out=$S/loops/hero.mp4   # the whole loop, cropped to the page's band
+    [ -f $src ] || { echo "missing $src: render the $b composition first" >&2; exit 1; }
+    fresh $out $src || { ff -i $src -an -vf "crop=1920:856:0:112,scale=1600:-2" -c:v libx264 -crf 22 -preset slow -pix_fmt yuv420p -movflags +faststart $out
+      ff -i $src -frames:v 1 -vf "crop=1920:856:0:112,scale=1600:-2" -q:v 3 $S/loops/hero.jpg; }; continue; fi
   src=$V/episodes/$a/$a.mp4; [ -f $src ] || { echo "missing $src" >&2; exit 1; }
   fresh $S/media/$a.mp4 $src || ff -i $src -c:v libx264 -crf 25 -preset slow -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart $S/media/$a.mp4
   fresh $S/media/$a.jpg $src || ff -ss 5 -i $src -frames:v 1 -vf scale=1280:-2 -q:v 3 $S/media/$a.jpg

@@ -55,7 +55,7 @@
     }
   ],
   "hero": {
-    "id": "hub",
-    "at": 34
+    "render": "site-ambient",
+    "_note": "remotion composition in the videos repo; render it there to remotion/out/site-ambient.mp4"
   }
 }
