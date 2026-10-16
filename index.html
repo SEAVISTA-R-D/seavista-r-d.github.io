@@ -104,6 +104,11 @@
   .people .n { font-weight: 600; }
   .people .r { color: var(--dim); font-size: 15px; }
   .people a { font: 15px var(--mono); overflow-wrap: anywhere; }
+  .people a { display: block; }
+  .people a.li { font: 600 14px var(--sans); margin-top: 4px; }
+  .turn h2 a { color: inherit; text-decoration: none; }
+  .turn h2 a:hover { text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 5px; }
+  .turn figcaption a, .lead a { color: var(--accText); }
 
   .builders { margin-top: 56px; padding: 28px; background: var(--plate); color: var(--plateFg);
               display: flex; flex-wrap: wrap; align-items: center; gap: 20px 48px; }
@@ -157,7 +162,7 @@
     <h2 class="label" data-t="contact_h"></h2>
     <div class="people">
       <div><div class="n">Prof. Panos Trahanias</div><div class="r" data-t="pi"></div><a href="mailto:trahania@ics.forth.gr">trahania@ics.forth.gr</a></div>
-      <div><div class="n">Dr. Nikolaos Kyriazis</div><div class="r" data-t="tc"></div><a href="mailto:kyriazis@ics.forth.gr">kyriazis@ics.forth.gr</a></div>
+      <div><div class="n">Dr. Nikolaos Kyriazis</div><div class="r" data-t="tc"></div><a href="mailto:kyriazis@ics.forth.gr">kyriazis@ics.forth.gr</a><a class="li" href="https://www.linkedin.com/in/kyriazisn/" target="_blank" rel="noopener">LinkedIn</a></div>
       <div><div class="n">Stylianos Michelakakis</div><div class="r" data-t="ld"></div><a href="mailto:stylianos@ics.forth.gr">stylianos@ics.forth.gr</a></div>
     </div>
   </section>
@@ -170,7 +175,9 @@
     <p><span data-t="built"></span><br>
       <a href="https://www.forth.gr/" target="_blank" rel="noopener">forth.gr</a> ·
       <a href="https://www.ics.forth.gr/" target="_blank" rel="noopener">ics.forth.gr</a> ·
-      <a href="https://www.ics.forth.gr/cvrl/" target="_blank" rel="noopener">ics.forth.gr/cvrl</a></p>
+      <a href="https://www.ics.forth.gr/cvrl/" target="_blank" rel="noopener">ics.forth.gr/cvrl</a><br>
+      LinkedIn: <a href="https://www.linkedin.com/company/icsforth" target="_blank" rel="noopener">ICS-FORTH</a> ·
+      <a href="https://www.linkedin.com/company/foundation-for-research-technology-hellas-forth-" target="_blank" rel="noopener">FORTH</a></p>
   </section>
 </main>
 
@@ -243,17 +250,17 @@ const STORY = [
    en: {h: "One workstation for any sea",
         p: ["All of it runs on one workstation. It carries about 6,000 vessel updates a second, each a full pass through every model, and about 48 times that with requests grouped into batches.",
             "One model learned four national sea areas at once. On Danish water it beats the model trained on Danish water alone, 13.3 m against 38.8 m in mean curve error. A new sea area is added in under four hours."],
-        c: "Four national sea areas, one model, in the video on what we measured."},
+        c: "Four national sea areas, one model, in the video on what we measured. Recorded traffic from the [Danish Maritime Authority](https://www.dma.dk/safety-at-sea/navigational-information/ais-data), [NOAA Marine Cadastre](https://hub.marinecadastre.gov/pages/vesseltraffic), [Fintraffic Digitraffic](https://www.digitraffic.fi/en/marine-traffic/) and DTU."},
    el: {h: "Ένας σταθμός εργασίας για κάθε θάλασσα",
         p: ["Όλο το σύστημα τρέχει σε έναν σταθμό εργασίας. Επεξεργάζεται περίπου 6.000 ενημερώσεις σκαφών το δευτερόλεπτο, καθεμία με πλήρη διέλευση από όλα τα μοντέλα, και περίπου 48 φορές περισσότερες όταν τα αιτήματα ομαδοποιούνται.",
             "Ένα μοντέλο έμαθε ταυτόχρονα τέσσερις εθνικές θαλάσσιες περιοχές. Στα ύδατα της Δανίας ξεπερνά το μοντέλο που εκπαιδεύτηκε μόνο σε αυτά, 13,3 m έναντι 38,8 m μέσου σφάλματος καμπύλης. Μια νέα θαλάσσια περιοχή προστίθεται σε λιγότερο από τέσσερις ώρες."],
-        c: "Τέσσερις εθνικές θαλάσσιες περιοχές, ένα μοντέλο, στο βίντεο για όσα μετρήσαμε."}},
+        c: "Τέσσερις εθνικές θαλάσσιες περιοχές, ένα μοντέλο, στο βίντεο για όσα μετρήσαμε. Καταγεγραμμένη κίνηση από τη [Δανική Ναυτιλιακή Αρχή](https://www.dma.dk/safety-at-sea/navigational-information/ais-data), το [NOAA Marine Cadastre](https://hub.marinecadastre.gov/pages/vesseltraffic), το [Fintraffic Digitraffic](https://www.digitraffic.fi/en/marine-traffic/) και το DTU."}},
 ];
 
 const T = {
   en: {
     claim: "The agent works the case. The officer decides.",
-    lead: "SEAVISTA watches every vessel at sea, investigates what stands out, and hands one officer a short list of cases that are already worked. A research prototype built at FORTH-ICS and CVRL.",
+    lead: "SEAVISTA watches every vessel at sea, investigates what stands out, and hands one officer a short list of cases that are already worked. A research prototype built at [FORTH-ICS](https://www.ics.forth.gr/) and [CVRL](https://www.ics.forth.gr/cvrl/).",
     watch: "Watch it",
     cta: "Watch the overview",
     start_h: "Videos",
@@ -262,13 +269,13 @@ const T = {
     videos_note: "The videos are in English, with the captions burned in, so they also play muted.",
     play: "▶ Play",
     contact_h: "Contact", pi: "Principal Investigator", tc: "Technical Coordinator", ld: "Lead Developer",
-    built: "SEAVISTA was built at the Computational Vision and Robotics Laboratory (CVRL) of the Institute of Computer Science, FORTH.",
-    funding: "Co-funded by Frontex under the Frontex Research Grants Programme",
+    built: "SEAVISTA was built at the [Computational Vision and Robotics Laboratory (CVRL)](https://www.ics.forth.gr/cvrl/) of the [Institute of Computer Science](https://www.ics.forth.gr/), [FORTH](https://www.forth.gr/).",
+    funding: "Co-funded by Frontex under the [Frontex Research Grants Programme](https://www.frontex.europa.eu/innovation/eu-research/research-grants/)",
     frontex_page: "The project at Frontex",
   },
   el: {
     claim: "Ο πράκτορας δουλεύει την υπόθεση. Ο αξιωματικός αποφασίζει.",
-    lead: "Το SEAVISTA παρακολουθεί κάθε σκάφος στη θάλασσα, διερευνά ό,τι ξεχωρίζει, και δίνει σε έναν αξιωματικό μια σύντομη λίστα υποθέσεων που έχουν ήδη δουλευτεί. Ένα ερευνητικό πρωτότυπο του ΙΠ-ΙΤΕ και του CVRL.",
+    lead: "Το SEAVISTA παρακολουθεί κάθε σκάφος στη θάλασσα, διερευνά ό,τι ξεχωρίζει, και δίνει σε έναν αξιωματικό μια σύντομη λίστα υποθέσεων που έχουν ήδη δουλευτεί. Ένα ερευνητικό πρωτότυπο του [ΙΠ-ΙΤΕ](https://www.ics.forth.gr/) και του [CVRL](https://www.ics.forth.gr/cvrl/).",
     watch: "Δείτε το",
     cta: "Δείτε την επισκόπηση",
     start_h: "Βίντεο",
@@ -277,16 +284,29 @@ const T = {
     videos_note: "Τα βίντεο είναι στα αγγλικά, με ενσωματωμένους υπότιτλους, ώστε να παίζουν και χωρίς ήχο.",
     play: "▶ Αναπαραγωγή",
     contact_h: "Επικοινωνία", pi: "Επιστημονικός Υπεύθυνος", tc: "Τεχνικός Συντονιστής", ld: "Επικεφαλής Ανάπτυξης",
-    built: "Το SEAVISTA αναπτύχθηκε στο Εργαστήριο Υπολογιστικής Όρασης και Ρομποτικής (CVRL) του Ινστιτούτου Πληροφορικής του ΙΤΕ.",
-    funding: "Συγχρηματοδοτείται από τον Frontex στο πλαίσιο του Frontex Research Grants Programme",
+    built: "Το SEAVISTA αναπτύχθηκε στο [Εργαστήριο Υπολογιστικής Όρασης και Ρομποτικής (CVRL)](https://www.ics.forth.gr/cvrl/) του [Ινστιτούτου Πληροφορικής](https://www.ics.forth.gr/) του [ΙΤΕ](https://www.forth.gr/).",
+    funding: "Συγχρηματοδοτείται από τον Frontex στο πλαίσιο του [Frontex Research Grants Programme](https://www.frontex.europa.eu/innovation/eu-research/research-grants/)",
     frontex_page: "Το έργο στον Frontex",
   },
 };
 
-let lang = (["el", "en"].includes(location.hash.slice(1)) && location.hash.slice(1))
-        || ((navigator.language || "").startsWith("el") ? "el" : "en");
+// the hash is either a language (#el, #en) or a place on the page (#turn-agent, #v-hub)
+const hash0 = location.hash.slice(1);
+let lang = (["el", "en"].includes(hash0) && hash0) || ((navigator.language || "").startsWith("el") ? "el" : "en");
 let manifest = null;
 const meta = {};
+// text with [label](url) links, built as nodes, never as HTML
+function put(el, str) {
+  el.textContent = "";
+  let last = 0;
+  for (const m of str.matchAll(/\[([^\]]+)\]\(([^)\s]+)\)/g)) {
+    el.append(str.slice(last, m.index));
+    const a = document.createElement("a"); a.href = m[2]; a.textContent = m[1];
+    if (/^https?:/.test(m[2])) { a.target = "_blank"; a.rel = "noopener"; }
+    el.append(a); last = m.index + m[0].length;
+  }
+  el.append(str.slice(last));
+}
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
 
 // the story's rows, built once; text is filled per language
@@ -294,7 +314,7 @@ const story = document.getElementById("story");
 for (const s of STORY) {
   const row = document.createElement("article");
   row.className = "turn"; row.id = "turn-" + s.img;
-  row.innerHTML = `<div class="text"><h2></h2></div>
+  row.innerHTML = `<div class="text"><h2><a href="#turn-${s.img}"></a></h2></div>
     <figure><img src="story/${s.img}.jpg" alt=""><figcaption><span></span> <button type="button"></button></figcaption></figure>`;
   row.querySelector("button").addEventListener("click", () => playVideo(s.from));
   s.row = row; story.append(row);
@@ -316,16 +336,15 @@ player.addEventListener("click", (e) => { if (e.target === player) player.close(
 
 function render() {
   document.documentElement.lang = lang;
-  for (const el of document.querySelectorAll("[data-t]")) el.textContent = T[lang][el.dataset.t];
+  for (const el of document.querySelectorAll("[data-t]")) put(el, T[lang][el.dataset.t]);
   for (const b of document.querySelectorAll(".lang button")) b.setAttribute("aria-pressed", b.dataset.lang === lang);
-  try { history.replaceState(null, "", "#" + lang); } catch {}
   for (const s of STORY) {
     const t = s[lang], text = s.row.querySelector(".text");
-    text.querySelector("h2").textContent = t.h;
+    const h = text.querySelector("h2 a"); h.textContent = t.h;
     text.querySelectorAll("p").forEach((p) => p.remove());
     for (const para of t.p) { const p = document.createElement("p"); p.textContent = para; text.append(p); }
-    s.row.querySelector("img").alt = t.c;
-    s.row.querySelector("figcaption span").textContent = t.c;
+    s.row.querySelector("img").alt = t.c.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
+    put(s.row.querySelector("figcaption span"), t.c);
     s.row.querySelector("figcaption button").textContent = T[lang].watch + " ▶";
   }
   const cta = document.getElementById("cta");
@@ -358,6 +377,10 @@ async function load() {
     (v.role === "overview" ? document.getElementById("overview") : grid).append(card);
   }
   render();
+  // arriving on a link to a place on the page
+  const at = hash0 && !["el", "en"].includes(hash0) && document.getElementById(hash0);
+  if (at) at.scrollIntoView({block: "center"});
+  if (hash0.startsWith("v-")) playVideo(hash0.slice(2));
 }
 
 document.getElementById("cta").addEventListener("click", () => {
@@ -365,7 +388,7 @@ document.getElementById("cta").addEventListener("click", () => {
   if (over) playVideo(over.id);
 });
 for (const b of document.querySelectorAll(".lang button"))
-  b.addEventListener("click", () => { lang = b.dataset.lang; render(); });
+  b.addEventListener("click", () => { lang = b.dataset.lang; render(); try { history.replaceState(null, "", "#" + lang); } catch {} });
 render(); load();
 </script>
 </body>
