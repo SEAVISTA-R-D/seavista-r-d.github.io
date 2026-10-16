@@ -59,10 +59,21 @@
   .turn figcaption button { all: unset; cursor: pointer; color: var(--accText); }
   .turn figcaption button:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 
+  .cta { margin-top: 28px; font: 600 16px var(--sans); color: var(--bg); background: var(--fg); border: 0; padding: 12px 20px; cursor: pointer; }
+  .cta .len { font: 14px var(--mono); margin-left: 8px; opacity: .7; }
+
   /* ----------------------------------------------------------------- videos */
+  /* the journey: the overview first and large, then the deep dives, each tied to the turn it expands */
+  #overview .video { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 20px 40px; align-items: center; }
+  #overview .video h3 { margin-top: 0; font-size: clamp(26px, 2.6vw, 34px); }
+  #overview .video p { font-size: 17px; max-width: 30em; }
+  h2.label.deep { margin-top: 64px; margin-bottom: 6px; }
+  .deep-intro { margin: 0 0 22px; color: var(--dim); font-size: 16px; max-width: 40em; }
+  .video .deepens { margin-top: 8px; font-size: 14px; color: var(--faint); }
+  .video .deepens a { color: var(--accText); }
   section { padding-block: 56px 8px; }
   h2.label { font: 600 15px var(--sans); color: var(--accText); margin: 0 0 20px; }
-  .videos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px 28px; }
+  .videos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 28px; }
   .video { min-width: 0; }
   .video .media { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: #000; cursor: pointer; }
   .video .media img, .video .media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -98,6 +109,7 @@
     .turn, .turn:nth-child(even) { grid-template-columns: 1fr; }
     .turn:nth-child(even) .text { order: 0; }
     .turn figure { margin-inline: -16px; }
+    #overview .video, .videos { grid-template-columns: 1fr; }
     .builders .marks img { height: 52px; }
     footer .fx { margin-left: 0; }
   }
@@ -113,14 +125,18 @@
     <h1>SEAVISTA</h1>
     <p class="claim" data-t="claim"></p>
     <p class="lead" data-t="lead"></p>
+    <button class="cta" id="cta" type="button"></button>
   </div>
 </header>
 
 <main class="wrap">
   <div class="story" id="story"></div>
 
-  <section>
-    <h2 class="label" data-t="videos_h"></h2>
+  <section id="watch">
+    <h2 class="label" data-t="start_h"></h2>
+    <div id="overview"></div>
+    <h2 class="label deep" data-t="deep_h"></h2>
+    <p class="deep-intro" data-t="deep_p"></p>
     <div class="videos" id="videos"></div>
     <p class="note" data-t="videos_note"></p>
   </section>
@@ -207,11 +223,11 @@ const STORY = [
             "Σε τρία περάσματα πάνω σε δύο επισημασμένα σύνολα συνήθους κίνησης, 72 και 69 περιπτώσεις, κανένας ψευδής συναγερμός δεν έφτασε στον αξιωματικό. Μια ειδοποίηση έφτασε σε άνθρωπο σε διάμεσο χρόνο 84 δευτερολέπτων, ήδη διερευνημένη και καταγεγραμμένη."],
         c: "Οι λόγοι, στο βίντεο για όσα μετρήσαμε."}},
   {img: "seas", from: "results",
-   en: {h: "One workstation, any sea",
+   en: {h: "One workstation for any sea",
         p: ["All of it runs on one workstation. It carries about 6,000 vessel updates a second, each a full pass through every model, and about 48 times that with requests grouped into batches.",
             "One model learned four national sea areas at once. On Danish water it beats the model trained on Danish water alone, 13.3 m against 38.8 m in mean curve error. A new sea area is added in under four hours."],
         c: "Four national sea areas, one model, in the video on what we measured."},
-   el: {h: "Ένας σταθμός εργασίας, κάθε θάλασσα",
+   el: {h: "Ένας σταθμός εργασίας για κάθε θάλασσα",
         p: ["Όλο το σύστημα τρέχει σε έναν σταθμό εργασίας. Επεξεργάζεται περίπου 6.000 ενημερώσεις σκαφών το δευτερόλεπτο, καθεμία με πλήρη διέλευση από όλα τα μοντέλα, και περίπου 48 φορές περισσότερες όταν τα αιτήματα ομαδοποιούνται.",
             "Ένα μοντέλο έμαθε ταυτόχρονα τέσσερις εθνικές θαλάσσιες περιοχές. Στα ύδατα της Δανίας ξεπερνά το μοντέλο που εκπαιδεύτηκε μόνο σε αυτά, 13,3 m έναντι 38,8 m μέσου σφάλματος καμπύλης. Μια νέα θαλάσσια περιοχή προστίθεται σε λιγότερο από τέσσερις ώρες."],
         c: "Τέσσερις εθνικές θαλάσσιες περιοχές, ένα μοντέλο, στο βίντεο για όσα μετρήσαμε."}},
@@ -222,7 +238,11 @@ const T = {
     claim: "The agent works the case. The officer decides.",
     lead: "SEAVISTA watches every vessel at sea, investigates what stands out, and hands one officer a short list of cases that are already worked. A research prototype built at FORTH-ICS and CVRL.",
     watch: "Watch it",
-    videos_h: "The videos",
+    cta: "Watch the overview",
+    start_h: "Start here",
+    deep_h: "Then go deeper",
+    deep_p: "Each deep dive takes one part of the story above and shows how it works.",
+    deepens: "Goes deeper into", and: " and ",
     videos_note: "The videos are in English, with the captions burned in, so they also play muted.",
     play: "▶ Play",
     contact_h: "Contact", pi: "Principal Investigator", tc: "Technical Coordinator", ld: "Lead Developer",
@@ -234,7 +254,11 @@ const T = {
     claim: "Ο πράκτορας δουλεύει την υπόθεση. Ο αξιωματικός αποφασίζει.",
     lead: "Το SEAVISTA παρακολουθεί κάθε σκάφος στη θάλασσα, διερευνά ό,τι ξεχωρίζει, και δίνει σε έναν αξιωματικό μια σύντομη λίστα υποθέσεων που έχουν ήδη δουλευτεί. Ένα ερευνητικό πρωτότυπο του ΙΠ-ΙΤΕ και του CVRL.",
     watch: "Δείτε το",
-    videos_h: "Τα βίντεο",
+    cta: "Δείτε την επισκόπηση",
+    start_h: "Ξεκινήστε εδώ",
+    deep_h: "Μετά, σε βάθος",
+    deep_p: "Κάθε εμβάθυνση παίρνει ένα κομμάτι της παραπάνω ιστορίας και δείχνει πώς λειτουργεί.",
+    deepens: "Εμβαθύνει σε", and: " και ",
     videos_note: "Τα βίντεο είναι στα αγγλικά, με ενσωματωμένους υπότιτλους, ώστε να παίζουν και χωρίς ήχο.",
     play: "▶ Αναπαραγωγή",
     contact_h: "Επικοινωνία", pi: "Επιστημονικός Υπεύθυνος", tc: "Τεχνικός Συντονιστής", ld: "Επικεφαλής Ανάπτυξης",
@@ -247,13 +271,14 @@ const T = {
 let lang = (["el", "en"].includes(location.hash.slice(1)) && location.hash.slice(1))
         || ((navigator.language || "").startsWith("el") ? "el" : "en");
 let manifest = null;
+const meta = {};
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
 
 // the story's rows, built once; text is filled per language
 const story = document.getElementById("story");
 for (const s of STORY) {
   const row = document.createElement("article");
-  row.className = "turn";
+  row.className = "turn"; row.id = "turn-" + s.img;
   row.innerHTML = `<div class="text"><h2></h2></div>
     <figure><img src="story/${s.img}.jpg" alt=""><figcaption><span></span> <button type="button"></button></figcaption></figure>`;
   row.querySelector("button").addEventListener("click", () => playVideo(s.from));
@@ -281,12 +306,27 @@ function render() {
     s.row.querySelector("figcaption span").textContent = t.c;
     s.row.querySelector("figcaption button").textContent = T[lang].watch + " ▶";
   }
+  const cta = document.getElementById("cta");
+  cta.textContent = T[lang].cta + " ▶";
   if (!manifest) return;
+  const over = manifest.videos.find((v) => v.role === "overview");
+  if (over && meta[over.id]) { const l = document.createElement("span"); l.className = "len"; l.textContent = mmss(meta[over.id].seconds); cta.append(l); }
   for (const v of manifest.videos) {
     const card = document.getElementById("v-" + v.id);
     card.querySelector("h3 .t").textContent = v.title[lang];
     card.querySelector("p").textContent = v.blurb[lang];
     const play = card.querySelector(".play"); if (play) play.textContent = T[lang].play;
+    const dp = card.querySelector(".deepens");
+    if (dp) {
+      dp.textContent = T[lang].deepens + " ";
+      (v.deepens || []).forEach((img, i) => {
+        const s = STORY.find((x) => x.img === img); if (!s) return;
+        if (i) dp.append(T[lang].and);
+        const a = document.createElement("a"); a.href = "#turn-" + img; a.textContent = s[lang].h;
+        a.addEventListener("click", (e) => { e.preventDefault(); s.row.scrollIntoView({behavior: "smooth", block: "center"}); });
+        dp.append(a);
+      });
+    }
   }
 }
 
@@ -294,22 +334,27 @@ async function load() {
   manifest = await (await fetch("videos.json")).json();
   const grid = document.getElementById("videos");
   for (const v of manifest.videos) {
-    const meta = await fetch(`media/${v.id}.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+    const m = meta[v.id] = await fetch(`media/${v.id}.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     const card = document.createElement("article");
     card.className = "video"; card.id = "v-" + v.id;
     card.innerHTML = `<div class="media"><img src="media/${v.id}.jpg" alt=""><span class="play"></span></div>
-      <h3><span class="t"></span>${meta ? `<span class="len">${mmss(meta.seconds)}</span>` : ""}</h3><p></p>`;
+      <div><h3><span class="t"></span>${m ? `<span class="len">${mmss(m.seconds)}</span>` : ""}</h3><p></p>
+      ${v.role === "deep" ? `<div class="deepens"></div>` : ""}</div>`;
     card.querySelector(".media").addEventListener("click", (e) => {
       const m = e.currentTarget; if (m.classList.contains("full")) return;
       for (const other of document.querySelectorAll(".media.full video")) other.pause();
       m.classList.add("full");
       m.innerHTML = `<video src="media/${v.id}.mp4" poster="media/${v.id}.jpg" controls autoplay playsinline preload="auto"></video>`;
     });
-    grid.append(card);
+    (v.role === "overview" ? document.getElementById("overview") : grid).append(card);
   }
   render();
 }
 
+document.getElementById("cta").addEventListener("click", () => {
+  const over = manifest && manifest.videos.find((v) => v.role === "overview");
+  if (over) playVideo(over.id);
+});
 for (const b of document.querySelectorAll(".lang button"))
   b.addEventListener("click", () => { lang = b.dataset.lang; render(); });
 render(); load();

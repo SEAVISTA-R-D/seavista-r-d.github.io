@@ -22,7 +22,7 @@ for r in "${ROWS[@]}"; do read a b c <<<"$r"; i=$((i+1)); progress $i $n "$a $b"
       ff -i $src -frames:v 1 -vf "crop=1920:856:0:112,scale=1600:-2" -q:v 3 $S/loops/hero.jpg; }; continue; fi
   src=$V/episodes/$a/$a.mp4; [ -f $src ] || { echo "missing $src" >&2; exit 1; }
   fresh $S/media/$a.mp4 $src || ff -i $src -c:v libx264 -crf 25 -preset slow -pix_fmt yuv420p -c:a aac -b:a 128k -movflags +faststart $S/media/$a.mp4
-  fresh $S/media/$a.jpg $src || ff -ss 5 -i $src -frames:v 1 -vf scale=1280:-2 -q:v 3 $S/media/$a.jpg
+  fresh $S/media/$a.jpg $src || ff -ss 0.4 -i $src -frames:v 1 -vf scale=1280:-2 -q:v 3 $S/media/$a.jpg
   cp -u $V/episodes/$a/$a.srt $S/media/
   python3 - "$V/episodes/$a/film.json" "$S/media/$a.json" <<'PY'
 import json,sys; d=json.load(open(sys.argv[1])); json.dump({"seconds": round(d["total"]/d["fps"],1)}, open(sys.argv[2],"w"))
