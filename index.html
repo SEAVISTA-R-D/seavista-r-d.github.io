@@ -48,14 +48,13 @@
     background: radial-gradient(ellipse 46% 70% at 70% 50%, rgba(61, 139, 255, .075), transparent 70%), var(--bg); }
   .turn:nth-child(odd)::before { background: radial-gradient(ellipse 46% 70% at 70% 50%, rgba(61, 139, 255, .09), transparent 70%), var(--band); }
   .turn:nth-child(even)::before { background-position: 0 0; background: radial-gradient(ellipse 46% 70% at 30% 50%, rgba(61, 139, 255, .075), transparent 70%), var(--bg); }
-  .turn { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 24px clamp(24px, 4vw, 64px); align-items: center; }
-  .turn:nth-child(even) { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+  .turn { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 24px clamp(24px, 4vw, 64px); align-items: center; }
+  .turn:nth-child(even) { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
   .turn:nth-child(even) .text { order: 2; }
   .turn h2 { margin: 0 0 14px; font: 600 clamp(27px, 2.6vw, 34px)/1.15 var(--sans); }
   .turn p { margin: 0 0 16px; max-width: 32em; font-size: clamp(19px, 1.55vw, 22px); line-height: 1.6; }
   .turn p:last-child { margin-bottom: 0; }
-  /* the drawing sits beside the text, never outweighs it */
-  .turn figure { margin: 0; min-width: 0; width: 100%; max-width: 540px; justify-self: center; }
+  .turn figure { margin: 0; min-width: 0; }
   .turn figure img { display: block; width: 100%; height: auto; max-width: 100%; }
   /* a drawing that stands on its own sea fades it into the page at every edge */
   .turn figure img.bleed {

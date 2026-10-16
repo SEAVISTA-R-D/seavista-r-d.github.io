@@ -1,8 +1,159 @@
 [
- {"name":"problem","film":"hub","at":1855},
- {"name":"normal","film":"modelling","at":7625,"hide":[["STEP","FRAME"],"the bar reads given"]},
- {"name":"agent","film":"awareness","at":5281,"hide":[["REVIEW GATE","OPERATOR"],"step 7 of 7"]},
- {"name":"desk","film":"hub","at":5411,"ground":true},
- {"name":"reasons","film":"results","at":4950,"hide":[["REVIEW GATE","OPERATOR"],"every call traceable"]},
- {"name":"seas","film":"results","at":7246,"hide":[["REVIEW GATE","OPERATOR"],"small seas, a model that knows ships"]}
+ {
+  "name": "problem",
+  "film": "hub",
+  "at": 1855,
+  "box": [
+   80,
+   120,
+   1620,
+   890
+  ]
+ },
+ {
+  "name": "normal",
+  "film": "modelling",
+  "at": 7625,
+  "hide": [
+   [
+    "STEP",
+    "FRAME"
+   ],
+   "the bar reads given"
+  ],
+  "moves": [
+   {
+    "text": [
+     "p(next hour",
+     "destination"
+    ],
+    "dx": -895,
+    "dy": 530
+   }
+  ]
+ },
+ {
+  "name": "agent",
+  "film": "awareness",
+  "at": 5281,
+  "hide": [
+   [
+    "REVIEW GATE",
+    "OPERATOR"
+   ],
+   "step 7 of 7"
+  ]
+ },
+ {
+  "name": "desk",
+  "film": "hub",
+  "at": 5411,
+  "ground": true,
+  "moves": [
+   {
+    "text": [
+     "already investigated",
+     "and it goes the other way"
+    ],
+    "dx": -206
+   },
+   {
+    "text": [
+     "WITH IT",
+     "one officer, and a list worth working"
+    ],
+    "dx": -206
+   },
+   {
+    "text": [
+     "3",
+     "on the list, each one already worked"
+    ],
+    "dx": -206,
+    "dy": -30
+   },
+   {
+    "within": [
+     950,
+     180,
+     970,
+     940
+    ],
+    "dx": -160
+   }
+  ]
+ },
+ {
+  "name": "reasons",
+  "film": "results",
+  "at": 4950,
+  "hide": [
+   [
+    "REVIEW GATE",
+    "OPERATOR"
+   ],
+   "every call traceable"
+  ],
+  "moves": [
+   {
+    "text": "the reasons it can cite, in an example",
+    "dx": 230
+   },
+   {
+    "text": "speed for its class",
+    "dx": 230
+   },
+   {
+    "text": "course against the lane",
+    "dx": 230
+   },
+   {
+    "text": "near a port",
+    "dx": 230
+   },
+   {
+    "text": "reporting gap",
+    "dx": 230
+   },
+   {
+    "text": "close to another vessel",
+    "dx": 230
+   },
+   {
+    "text": "inside a zone",
+    "dx": 230
+   },
+   {
+    "within": [
+     530,
+     300,
+     935,
+     530
+    ],
+    "tag": "path",
+    "sx": 0.41,
+    "ox": 926
+   },
+   {
+    "text": [
+     "100%",
+     "in every labelled"
+    ],
+    "dx": -1109,
+    "dy": 380
+   }
+  ]
+ },
+ {
+  "name": "seas",
+  "film": "results",
+  "at": 7246,
+  "hide": [
+   [
+    "REVIEW GATE",
+    "OPERATOR"
+   ],
+   "small seas, a model that knows ships"
+  ]
+ }
 ]
