@@ -14,6 +14,8 @@
     --sans: "IBM Plex Sans", system-ui, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, monospace;
     --max: 1240px;
+    /* the type scale: five steps, and nothing on the page is set outside them */
+    --fs-s: 14px; --fs-b: 18px; --fs-r: 20px; --fs-h: 30px;
     --bg: #080c13; --band: #0c1320; --line: #1f2a38; --fg: #e8eef6; --dim: #9fb0c4; --faint: #708297;
     --acc: #3d8bff; --accText: #7fb0ff; --warm: #ffb23d;
     --plate: #e9eef5; --plateFg: #0d1b2a; --foot: #050810;
@@ -21,14 +23,14 @@
   }
   * { box-sizing: border-box; }
   html { background: var(--bg); overflow-x: clip; }
-  body { margin: 0; overflow-x: clip; background: var(--bg); color: var(--fg); font: 18px/1.65 var(--sans); }
+  body { margin: 0; overflow-x: clip; background: var(--bg); color: var(--fg); font: var(--fs-b)/1.65 var(--sans); }
   a { color: var(--accText); }
   :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
   .wrap { max-width: var(--max); margin: 0 auto; padding-inline: 16px; }
   h1, h2, h3 { text-wrap: balance; }
 
   .lang { position: absolute; top: 16px; right: 16px; z-index: 2; display: flex; gap: 2px; }
-  .lang button { font: 600 13px var(--sans); color: var(--fg); background: rgba(5,8,16,.7); border: 1px solid var(--faint);
+  .lang button { font: 600 var(--fs-s) var(--sans); color: var(--fg); background: rgba(5,8,16,.7); border: 1px solid var(--faint);
                  padding: 4px 9px; cursor: pointer; }
   .lang button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 
@@ -36,7 +38,7 @@
   .hero { border-top: 3px solid var(--acc); padding-block: clamp(56px, 9vw, 128px) clamp(24px, 4vw, 48px); }
   .hero h1 { margin: 0; font-size: clamp(52px, 10vw, 136px); line-height: .92; font-weight: 700; letter-spacing: .01em; }
   .hero .claim { margin: 22px 0 0; font-size: clamp(24px, 3vw, 38px); line-height: 1.2; font-weight: 600; max-width: 22em; }
-  .hero .lead { margin: 18px 0 0; color: var(--dim); font-size: clamp(17px, 1.5vw, 20px); max-width: 38em; }
+  .hero .lead { margin: 18px 0 0; color: var(--dim); font-size: var(--fs-r); max-width: 38em; }
 
   /* ------------------------------------------------------------------ story */
   .story { display: grid; padding-block: clamp(24px, 4vw, 48px); }
@@ -51,8 +53,8 @@
   .turn { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 24px clamp(24px, 4vw, 64px); align-items: center; }
   .turn:nth-child(even) { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
   .turn:nth-child(even) .text { order: 2; }
-  .turn h2 { margin: 0 0 14px; font: 600 clamp(27px, 2.6vw, 34px)/1.15 var(--sans); }
-  .turn p { margin: 0 0 16px; max-width: 32em; font-size: clamp(19px, 1.55vw, 22px); line-height: 1.6; }
+  .turn h2 { margin: 0 0 14px; font: 600 var(--fs-h)/1.15 var(--sans); }
+  .turn p { margin: 0 0 16px; max-width: 32em; font-size: var(--fs-r); line-height: 1.6; }
   .turn p:last-child { margin-bottom: 0; }
   .turn figure { margin: 0; min-width: 0; }
   .turn figure img { display: block; width: 100%; height: auto; max-width: 100%; }
@@ -64,42 +66,42 @@
             mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
                         linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
             mask-composite: intersect; }
-  .turn figcaption { margin-top: 10px; font-size: 14px; color: var(--faint); }
+  .turn figcaption { margin-top: 10px; font-size: var(--fs-s); color: var(--faint); }
   .turn figcaption button { all: unset; cursor: pointer; color: var(--accText); }
   .turn figcaption button:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 
-  .cta { margin-top: 28px; font: 600 16px var(--sans); color: var(--bg); background: var(--fg); border: 0; padding: 12px 20px; cursor: pointer; }
-  .cta .len { font: 14px var(--mono); margin-left: 8px; opacity: .7; }
+  .cta { margin-top: 28px; font: 600 var(--fs-b) var(--sans); color: var(--bg); background: var(--fg); border: 0; padding: 12px 20px; cursor: pointer; }
+  .cta .len { font: var(--fs-s) var(--mono); margin-left: 8px; opacity: .7; }
 
   /* ----------------------------------------------------------------- videos */
   /* the journey: the overview first and large, then the deep dives, each tied to the turn it expands */
   #overview .video { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 20px 40px; align-items: center; }
-  #overview .video h3 { margin-top: 0; font-size: clamp(26px, 2.6vw, 34px); }
-  #overview .video p { font-size: 17px; max-width: 30em; }
+  #overview .video h3 { margin-top: 0; font-size: var(--fs-h); }
+  #overview .video p { font-size: var(--fs-r); max-width: 30em; }
   h2.label.deep { margin-top: 64px; margin-bottom: 6px; }
-  .deep-intro { margin: 0 0 22px; color: var(--dim); font-size: 16px; max-width: 40em; }
+  .deep-intro { margin: 0 0 22px; color: var(--dim); font-size: var(--fs-b); max-width: 40em; }
   section { padding-block: 56px 8px; }
-  h2.label { font: 600 15px var(--sans); color: var(--accText); margin: 0 0 20px; }
+  h2.label { font: 600 var(--fs-h)/1.15 var(--sans); margin: 0 0 20px; }
   .videos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 28px; }
   .video { min-width: 0; }
   .video .media { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: #000; cursor: pointer; }
   .video .media img, .video .media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .video .media.full video { object-fit: contain; }
   .video .media.full { cursor: default; }
-  .video .play { position: absolute; left: 12px; bottom: 10px; font: 600 13px var(--sans); color: var(--fg);
+  .video .play { position: absolute; left: 12px; bottom: 10px; font: 600 var(--fs-s) var(--sans); color: var(--fg);
                  background: rgba(5,8,16,.82); border: 1px solid var(--acc); padding: 4px 11px; }
-  .video h3 { margin: 12px 0 4px; font-size: 19px; font-weight: 600; }
-  .video .len { font: 13px var(--mono); color: var(--faint); margin-left: 8px; font-weight: 400; }
-  .video p { margin: 0; color: var(--dim); font-size: 15px; line-height: 1.5; }
-  .note { color: var(--faint); font-size: 14px; margin: 18px 0 0; }
+  .video h3 { margin: 12px 0 4px; font-size: var(--fs-r); font-weight: 600; }
+  .video .len { font: var(--fs-s) var(--mono); color: var(--faint); margin-left: 8px; font-weight: 400; }
+  .video p { margin: 0; color: var(--dim); font-size: var(--fs-b); line-height: 1.5; }
+  .note { color: var(--faint); font-size: var(--fs-s); margin: 18px 0 0; }
 
   /* the player: a dialog over the page, closed by Esc, the button or a click outside */
   #player { padding: 0; border: 1px solid var(--line); background: #000; color: var(--fg);
             width: min(900px, calc(100vw - 32px)); max-height: calc(100vh - 32px); overflow: hidden; }
   #player::backdrop { background: rgba(3,5,9,.82); }
   #player .bar { display: flex; align-items: center; gap: 12px; padding: 8px 8px 8px 16px; background: var(--bg); border-bottom: 1px solid var(--line); }
-  #player .t { font-weight: 600; font-size: 16px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  #player .bar button { margin-left: auto; font: 600 16px var(--sans); color: var(--fg); background: none; border: 1px solid var(--faint);
+  #player .t { font-weight: 600; font-size: var(--fs-b); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #player .bar button { margin-left: auto; font: 600 var(--fs-b) var(--sans); color: var(--fg); background: none; border: 1px solid var(--faint);
                         width: 36px; height: 32px; cursor: pointer; }
   #player video { display: block; width: 100%; aspect-ratio: 16 / 9; max-height: calc(100vh - 90px); background: #000; }
   @media (prefers-reduced-motion: no-preference) {
@@ -107,14 +109,14 @@
     @keyframes pop { from { opacity: 0; transform: scale(.98); } to { opacity: 1; transform: none; } }
   }
 
-  .thanks p { margin: 0 0 10px; color: var(--dim); font-size: 15px; line-height: 1.55; max-width: 52em; }
+  .thanks p { margin: 0 0 10px; color: var(--dim); font-size: var(--fs-b); line-height: 1.55; max-width: 52em; }
 
   /* ---------------------------------------------------------------- contact */
   .people { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px 28px; }
   .people div { min-width: 0; border-top: 1px solid var(--line); padding-top: 12px; }
   .people .n { font-weight: 600; }
-  .people .r { color: var(--dim); font-size: 15px; }
-  .people a { font: 15px var(--mono); overflow-wrap: anywhere; }
+  .people .r { color: var(--dim); font-size: var(--fs-b); }
+  .people a { font: var(--fs-b) var(--mono); overflow-wrap: anywhere; }
   .people a.who { font: inherit; color: var(--fg); text-decoration-color: var(--faint); text-underline-offset: 3px; }
   .turn h2 a { color: inherit; text-decoration: none; }
   .turn h2 a:hover { text-decoration: underline; text-decoration-color: var(--faint); text-underline-offset: 3px; }
@@ -124,15 +126,16 @@
               display: flex; flex-wrap: wrap; align-items: center; gap: 20px 48px; }
   .builders .marks { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px; }
   .builders .marks img { height: 72px; width: auto; display: block; }
-  .builders p { margin: 0; flex: 1 1 22em; min-width: 0; font-size: 15px; line-height: 1.55; }
+  .builders p { margin: 0; flex: 1 1 22em; min-width: 0; font-size: var(--fs-b); line-height: 1.55; }
   .builders a { color: #1f5fbf; }
 
   footer { margin-top: 56px; background: var(--foot); border-top: 1px solid var(--line); }
   footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; padding-block: 22px; }
-  footer .fundline { color: var(--dim); font-size: 14px; max-width: 34em; }
+  footer .fundline { color: var(--dim); font-size: var(--fs-s); max-width: 34em; }
   footer .fx { margin-left: auto; }
   footer img { height: 34px; display: block; }
   @media (max-width: 860px) {
+    :root { --fs-h: 26px; }
     .turn, .turn:nth-child(even) { grid-template-columns: 1fr; }
     .turn:nth-child(even) .text { order: 0; }
     .turn figure { margin-inline: -16px; }
@@ -223,11 +226,11 @@ const STORY = [
    en: {h: "The problem",
         p: ["Every vessel at sea reports where it is, every few seconds. Watching that by rule means writing a limit for each case somebody has already thought of.",
             "Set the limit loose and the case is missed. Set it tight and the desk fills with false alarms. Every new trick needs a new rule, written after it has worked."],
-        c: "Where fixed rules fall short, in the overview video. The counts are an illustration."},
+        c: "Where fixed rules fall short. The counts are an illustration."},
    el: {h: "Το πρόβλημα",
         p: ["Κάθε σκάφος στη θάλασσα αναφέρει πού βρίσκεται, κάθε λίγα δευτερόλεπτα. Ο έλεγχος με κανόνες σημαίνει ένα γραμμένο όριο για κάθε περίπτωση που έχει ήδη σκεφτεί κάποιος.",
             "Αν το όριο είναι χαλαρό, η περίπτωση χάνεται. Αν είναι αυστηρό, η κονσόλα γεμίζει ψευδείς συναγερμούς. Κάθε νέο τέχνασμα χρειάζεται νέο κανόνα, γραμμένο αφού έχει ήδη πετύχει."],
-        c: "Πού δεν φτάνουν οι σταθεροί κανόνες, στο βίντεο επισκόπησης. Οι αριθμοί είναι ενδεικτικοί."}},
+        c: "Πού δεν φτάνουν οι σταθεροί κανόνες. Οι αριθμοί είναι ενδεικτικοί."}},
   {img: "normal", from: "modelling",
    en: {h: "Learning normal",
         p: ["SEAVISTA learns how ships normally move, from recorded traffic. Of every vessel, with every report, it asks whether this manoeuvre is ordinary, whether this continuation is ordinary, and whether vessels are ever here.",
@@ -250,36 +253,35 @@ const STORY = [
    en: {h: "No backlog on the desk",
         p: ["Without a layer like this, every alert waits for a person. The queue grows faster than a watch can clear it, and the watch spends its hours on alerts that come to nothing.",
             "With it, the agent works every alert, and the officer on watch works a short list. Each case arrives with its evidence, its cited reasons and the one change that would turn the assessment around."],
-        c: "Cutting through the noise, in the overview video. The counts are an illustration."},
+        c: "Cutting through the noise. The counts are an illustration."},
    el: {h: "Χωρίς εκκρεμότητες στην κονσόλα",
         p: ["Χωρίς ένα τέτοιο ενδιάμεσο επίπεδο, κάθε ειδοποίηση περιμένει έναν άνθρωπο. Η ουρά μεγαλώνει πιο γρήγορα απ' όσο μπορεί να την αδειάσει μια βάρδια, και η βάρδια ξοδεύει τις ώρες της σε ειδοποιήσεις που δεν οδηγούν πουθενά.",
             "Με αυτό το επίπεδο, ο AI agent επεξεργάζεται κάθε ειδοποίηση και ο αξιωματικός βάρδιας μια σύντομη λίστα. Κάθε περίπτωση φτάνει με τα στοιχεία της, τους λόγους της με τις παραπομπές τους, και τη μία αλλαγή που θα αντέστρεφε την εκτίμηση."],
-        c: "Μέσα από τον θόρυβο, στο βίντεο επισκόπησης. Οι αριθμοί είναι ενδεικτικοί."}},
+        c: "Μέσα από τον θόρυβο. Οι αριθμοί είναι ενδεικτικοί."}},
   {img: "reasons", from: "results",
    en: {h: "Every call traceable",
         p: ["The agent's assessment cites every rule that fired. In every labelled case, none was dropped. The officer's verdict is the decision, and nothing in the queue becomes final without it. Any call can be traced back to the rules behind it.",
             "The agent judged two labelled sets of ordinary traffic, 72 cases and 69, three times over. None of that ordinary traffic reached the officer, in any pass. An alert reached a person a median of 84 seconds after its signal came in, investigated and written up, with the queue counted in."],
-        c: "The reasons, in the video on what we measured."},
+        c: "Every reason that applied, cited."},
    el: {h: "Κάθε εκτίμηση ιχνηλατήσιμη",
         p: ["Η εκτίμηση του AI agent παραθέτει κάθε κανόνα που ενεργοποιήθηκε. Σε κάθε περίπτωση με γνωστή ετικέτα, κανένας δεν παραλείφθηκε. Η κρίση του αξιωματικού είναι η απόφαση, και τίποτα στην ουρά δεν οριστικοποιείται χωρίς αυτήν. Κάθε εκτίμηση μπορεί να ιχνηλατηθεί ως τους κανόνες πίσω της.",
             "Ο AI agent έκρινε δύο σύνολα συνήθους κυκλοφορίας με γνωστή ετικέτα, 72 και 69 περιπτώσεις, τρεις φορές το καθένα. Τίποτα από αυτήν τη συνήθη κυκλοφορία δεν έφτασε στον αξιωματικό, σε κανένα πέρασμα. Μια ειδοποίηση έφτανε σε άνθρωπο σε διάμεσο χρόνο 84 δευτερολέπτων από τη λήψη του σήματος, διερευνημένη και με γραμμένη αναφορά, με τον χρόνο αναμονής στην ουρά συνυπολογισμένο."],
-        c: "Οι λόγοι, στο βίντεο για όσα μετρήσαμε."}},
+        c: "Κάθε λόγος που ίσχυε, με ρητή αναφορά."}},
   {img: "seas", from: "results",
    en: {h: "A new sea area, learned in under four hours",
         p: ["The whole prototype runs on one workstation. In our measurements it carried about 6,000 vessel updates a second, each a full pass through every model, and about 48 times that with requests grouped into batches.",
             "One model learned four national sea areas at once. On Danish water it beats the model trained on Danish water alone, 13.3 m against 38.8 m in mean curve error. Adding a sea area takes one full refresh of the model, under four hours on the same workstation."],
-        c: "Four national sea areas, one model, in the video on what we measured. Recorded traffic from the [Danish Maritime Authority](https://www.dma.dk/safety-at-sea/navigational-information/ais-data), [NOAA Marine Cadastre](https://hub.marinecadastre.gov/pages/vesseltraffic), [Fintraffic Digitraffic](https://www.digitraffic.fi/en/marine-traffic/) and DTU."},
+        c: "Four national sea areas, one model. Recorded traffic from the [Danish Maritime Authority](https://www.dma.dk/safety-at-sea/navigational-information/ais-data), [NOAA Marine Cadastre](https://hub.marinecadastre.gov/pages/vesseltraffic), [Fintraffic Digitraffic](https://www.digitraffic.fi/en/marine-traffic/) and DTU."},
    el: {h: "Νέα θαλάσσια περιοχή στο μοντέλο σε λιγότερο από τέσσερις ώρες",
         p: ["Όλο το πρωτότυπο τρέχει σε έναν σταθμό εργασίας. Στις μετρήσεις μας επεξεργάστηκε περίπου 6.000 ενημερώσεις σκαφών το δευτερόλεπτο, καθεμία με πλήρη διέλευση από όλα τα μοντέλα, και περίπου 48 φορές περισσότερες όταν τα αιτήματα ομαδοποιήθηκαν σε δέσμες.",
             "Ένα μοντέλο έμαθε ταυτόχρονα τέσσερις εθνικές θαλάσσιες περιοχές. Στα δανικά ύδατα ξεπερνά το μοντέλο που εκπαιδεύτηκε μόνο σε αυτά, 13,3 m έναντι 38,8 m μέσου σφάλματος καμπύλης. Η προσθήκη μιας θαλάσσιας περιοχής απαιτεί μία πλήρη επανεκπαίδευση του μοντέλου, λιγότερο από τέσσερις ώρες στον ίδιο σταθμό εργασίας."],
-        c: "Τέσσερις εθνικές θαλάσσιες περιοχές, ένα μοντέλο, στο βίντεο για όσα μετρήσαμε. Καταγεγραμμένη κυκλοφορία από τη [Δανική Ναυτιλιακή Αρχή](https://www.dma.dk/safety-at-sea/navigational-information/ais-data), το [NOAA Marine Cadastre](https://hub.marinecadastre.gov/pages/vesseltraffic), το [Fintraffic Digitraffic](https://www.digitraffic.fi/en/marine-traffic/) και το DTU."}},
+        c: "Τέσσερις εθνικές θαλάσσιες περιοχές, ένα μοντέλο. Καταγεγραμμένη κυκλοφορία από τη [Δανική Ναυτιλιακή Αρχή](https://www.dma.dk/safety-at-sea/navigational-information/ais-data), το [NOAA Marine Cadastre](https://hub.marinecadastre.gov/pages/vesseltraffic), το [Fintraffic Digitraffic](https://www.digitraffic.fi/en/marine-traffic/) και το DTU."}},
 ];
 
 const T = {
   en: {
     claim: "AI that investigates unusual vessel behaviour, for the officer on watch.",
     lead: "SEAVISTA is a twelve-month research project at [FORTH-ICS](https://www.ics.forth.gr/) and [CVRL](https://www.ics.forth.gr/cvrl/). It built and tested a system that checks every position report ships broadcast against how ships usually move there. An AI agent investigates anomalous behaviour, and the officer on watch gets a short list of cases with the evidence already gathered.",
-    watch: "Watch it",
     cta: "Watch the overview",
     start_h: "Videos",
     deep_h: "A closer look",
@@ -298,7 +300,6 @@ const T = {
   el: {
     claim: "AI που διερευνά την ασυνήθιστη συμπεριφορά πλοίων, για τον αξιωματικό βάρδιας.",
     lead: "Το SEAVISTA είναι ένα δωδεκάμηνο ερευνητικό έργο του [ΙΠ-ΙΤΕ](https://www.ics.forth.gr/) και του [CVRL](https://www.ics.forth.gr/cvrl/). Ανέπτυξε και δοκίμασε ένα σύστημα που ελέγχει κάθε αναφορά θέσης που εκπέμπουν τα πλοία σε σχέση με το πώς κινούνται συνήθως τα πλοία στην περιοχή. Ένας AI agent διερευνά την ασυνήθιστη συμπεριφορά και ο αξιωματικός βάρδιας λαμβάνει μια σύντομη λίστα περιπτώσεων, με τα στοιχεία ήδη συγκεντρωμένα.",
-    watch: "Δείτε το",
     cta: "Δείτε την επισκόπηση",
     start_h: "Βίντεο",
     deep_h: "Από πιο κοντά",
@@ -371,13 +372,18 @@ function render() {
     for (const para of t.p) { const p = document.createElement("p"); p.textContent = para; text.append(p); }
     s.row.querySelector("img").alt = t.c.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1");
     put(s.row.querySelector("figcaption span"), t.c);
-    s.row.querySelector("figcaption button").textContent = T[lang].watch + " ▶";
+    s.row.querySelector("figcaption button").hidden = !manifest;
   }
   const cta = document.getElementById("cta");
   cta.textContent = T[lang].cta + " ▶";
   if (!manifest) return;
   const over = manifest.videos.find((v) => v.role === "overview");
   if (over && meta[over.id]) { const l = document.createElement("span"); l.className = "len"; l.textContent = mmss(meta[over.id].seconds); cta.append(l); }
+  for (const s of STORY) {
+    const v = manifest.videos.find((x) => x.id === s.from);
+    if (!v) throw new Error(`story turn ${s.img} plays ${s.from}, which videos.json does not list`);
+    s.row.querySelector("figcaption button").textContent = v.title[lang] + " ▶";
+  }
   for (const v of manifest.videos) {
     const card = document.getElementById("v-" + v.id);
     card.querySelector("h3 .t").textContent = v.title[lang];

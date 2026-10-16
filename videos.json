@@ -6,12 +6,12 @@
       "loop_at": 92,
       "loop_name": "forecast",
       "title": {
-        "en": "One officer. One sea.",
-        "el": "Ένας αξιωματικός. Μία θάλασσα."
+        "en": "Overview",
+        "el": "Επισκόπηση"
       },
       "blurb": {
-        "en": "The overview. What it would take for one officer to cover a whole sea on one watch, and what SEAVISTA measured on the way.",
-        "el": "Η επισκόπηση. Τι θα χρειαζόταν για να καλύψει ένας αξιωματικός μια ολόκληρη θάλασσα σε μία βάρδια, και τι μέτρησε το SEAVISTA στην πορεία."
+        "en": "What it would take for one officer to cover a whole sea on one watch, and what SEAVISTA measured on the way.",
+        "el": "Τι θα χρειαζόταν για να καλύψει ένας αξιωματικός μια ολόκληρη θάλασσα σε μία βάρδια, και τι μέτρησε το SEAVISTA στην πορεία."
       },
       "role": "overview"
     },
@@ -20,8 +20,8 @@
       "loop_at": 250,
       "loop_name": "next-hour",
       "title": {
-        "en": "Learning normal",
-        "el": "Μαθαίνοντας το σύνηθες"
+        "en": "Vessel behaviour model",
+        "el": "Μοντέλο συμπεριφοράς πλοίων"
       },
       "blurb": {
         "en": "How SEAVISTA learns what ordinary movement looks like, one hour of a voyage at a time, and scores every vessel against it.",
@@ -37,8 +37,8 @@
       "loop_at": 166,
       "loop_name": "picture",
       "title": {
-        "en": "How the agent sees the sea",
-        "el": "Πώς βλέπει τη θάλασσα ο AI agent"
+        "en": "The AI agent's tools",
+        "el": "Τα εργαλεία του AI agent"
       },
       "blurb": {
         "en": "The AI agent writes a short program for each case, runs it over the recorded traffic and reads its own maps and charts.",
@@ -54,8 +54,8 @@
       "loop_at": 226,
       "loop_name": "seas",
       "title": {
-        "en": "What we measured",
-        "el": "Τι μετρήσαμε"
+        "en": "Results",
+        "el": "Αποτελέσματα"
       },
       "blurb": {
         "en": "The numbers behind SEAVISTA, and what each one means for the officer.",
