@@ -10,8 +10,8 @@
         "el": "Ένας αξιωματικός. Μία θάλασσα."
       },
       "blurb": {
-        "en": "The overview. What it would take for one officer to keep watch over a whole sea, and what SEAVISTA measured on the way.",
-        "el": "Η επισκόπηση. Τι χρειάζεται για να επιβλέπει ένας αξιωματικός μια ολόκληρη θάλασσα, και τι μέτρησε το SEAVISTA στην πορεία."
+        "en": "The overview. What it would take for one officer to cover a whole sea on one watch, and what SEAVISTA measured on the way.",
+        "el": "Η επισκόπηση. Τι θα χρειαζόταν για να καλύψει ένας αξιωματικός μια ολόκληρη θάλασσα σε μία βάρδια, και τι μέτρησε το SEAVISTA στην πορεία."
       },
       "role": "overview"
     },
@@ -38,11 +38,11 @@
       "loop_name": "picture",
       "title": {
         "en": "How the agent sees the sea",
-        "el": "Πώς βλέπει τη θάλασσα ο πράκτορας"
+        "el": "Πώς βλέπει τη θάλασσα ο AI agent"
       },
       "blurb": {
-        "en": "The AI agent writes a small program for each case, runs it over the recorded traffic and reads its own maps and charts.",
-        "el": "Ο πράκτορας τεχνητής νοημοσύνης γράφει ένα μικρό πρόγραμμα για κάθε υπόθεση, το εκτελεί πάνω στην καταγεγραμμένη κίνηση και διαβάζει τους δικούς του χάρτες και διαγράμματα."
+        "en": "The AI agent writes a short program for each case, runs it over the recorded traffic and reads its own maps and charts.",
+        "el": "Ο AI agent γράφει ένα σύντομο πρόγραμμα για κάθε περίπτωση, το τρέχει πάνω στην καταγεγραμμένη κυκλοφορία και διαβάζει τους δικούς του χάρτες και διαγράμματα."
       },
       "role": "deep",
       "deepens": [
