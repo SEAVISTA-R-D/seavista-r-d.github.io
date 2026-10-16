@@ -14,14 +14,14 @@
     --sans: "IBM Plex Sans", system-ui, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, monospace;
     --max: 1240px;
-    --bg: #080c13; --line: #1f2a38; --fg: #e8eef6; --dim: #9fb0c4; --faint: #708297;
+    --bg: #080c13; --band: #0c1320; --line: #1f2a38; --fg: #e8eef6; --dim: #9fb0c4; --faint: #708297;
     --acc: #3d8bff; --accText: #7fb0ff; --warm: #ffb23d;
     --plate: #e9eef5; --plateFg: #0d1b2a; --foot: #050810;
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
-  html { background: var(--bg); }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 18px/1.65 var(--sans); }
+  html { background: var(--bg); overflow-x: clip; }
+  body { margin: 0; overflow-x: clip; background: var(--bg); color: var(--fg); font: 18px/1.65 var(--sans); }
   a { color: var(--accText); }
   :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
   .wrap { max-width: var(--max); margin: 0 auto; padding-inline: 16px; }
@@ -39,13 +39,21 @@
   .hero .lead { margin: 18px 0 0; color: var(--dim); font-size: clamp(17px, 1.5vw, 20px); max-width: 38em; }
 
   /* ------------------------------------------------------------------ story */
-  .story { display: grid; gap: clamp(48px, 8vw, 112px); padding-block: clamp(32px, 5vw, 64px); }
+  .story { display: grid; padding-block: clamp(24px, 4vw, 48px); }
+  /* each turn is a band across the whole page: two tones in turn, and a low
+     glow of the accent behind the drawing, on whichever side it sits */
+  .turn { position: relative; isolation: isolate; padding-block: clamp(56px, 7vw, 104px); }
+  .turn::before { content: ""; position: absolute; z-index: -1; inset: 0 calc(50% - 50vw);
+    border-top: 1px solid rgba(127, 176, 255, .07);
+    background: radial-gradient(ellipse 46% 70% at 70% 50%, rgba(61, 139, 255, .075), transparent 70%), var(--bg); }
+  .turn:nth-child(odd)::before { background: radial-gradient(ellipse 46% 70% at 70% 50%, rgba(61, 139, 255, .09), transparent 70%), var(--band); }
+  .turn:nth-child(even)::before { background-position: 0 0; background: radial-gradient(ellipse 46% 70% at 30% 50%, rgba(61, 139, 255, .075), transparent 70%), var(--bg); }
   .turn { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(24px, 4vw, 64px); align-items: center; }
   .turn:nth-child(even) { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
   .turn:nth-child(even) .text { order: 2; }
   /* the paragraph carries the turn; its heading only names it, like the page's other section heads */
-  .turn h2 { margin: 0 0 10px; font: 600 15px/1.4 var(--sans); color: var(--accText); }
-  .turn p { margin: 0 0 14px; max-width: 34em; }
+  .turn h2 { margin: 0 0 12px; font: 600 16px/1.4 var(--sans); color: var(--accText); }
+  .turn p { margin: 0 0 16px; max-width: 32em; font-size: clamp(19px, 1.55vw, 22px); line-height: 1.6; }
   .turn p:last-child { margin-bottom: 0; }
   .turn figure { margin: 0; min-width: 0; }
   .turn figure img { display: block; width: 100%; height: auto; max-width: 100%; }
@@ -129,6 +137,7 @@
     .turn, .turn:nth-child(even) { grid-template-columns: 1fr; }
     .turn:nth-child(even) .text { order: 0; }
     .turn figure { margin-inline: -16px; }
+    .turn::before, .turn:nth-child(odd)::before, .turn:nth-child(even)::before { background-image: none; }
     #overview .video, .videos { grid-template-columns: 1fr; }
     .builders .marks img { height: 52px; }
     footer .fx { margin-left: 0; }
