@@ -7,20 +7,21 @@
 <meta name="description" content="SEAVISTA, a research project at FORTH-ICS and CVRL, co-funded by Frontex under the Frontex Research Grants Programme.">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600;700&display=swap">
 <style>
-  /* The videos' own Ops Console palette (remotion/src/theme.ts), so a frame and the page read as one system.
-     Layout: the claim on the left, the agent at work on the right; the backlog contrast under it. */
+  /* The videos' own Ops Console palette (remotion/src/theme.ts). The page ground is the videos' ground,
+     so a graphic lifted from a slide melts into it at the edges instead of sitting in a box.
+     Layout: one story, told in rows; text and graphic trade columns on every turn. */
   :root {
     --sans: "IBM Plex Sans", system-ui, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, monospace;
-    --max: 1180px;
-    --bg: #080c13; --panel: #111824; --line: #1f2a38; --fg: #e8eef6; --dim: #9fb0c4; --faint: #708297;
-    --acc: #3d8bff; --accText: #7fb0ff; --warm: #ffb23d; --ok: #50b07c; --alarm: #ff5c5c;
+    --max: 1240px;
+    --bg: #080c13; --line: #1f2a38; --fg: #e8eef6; --dim: #9fb0c4; --faint: #708297;
+    --acc: #3d8bff; --accText: #7fb0ff; --warm: #ffb23d;
     --plate: #e9eef5; --plateFg: #0d1b2a; --foot: #050810;
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
   html { background: var(--bg); }
-  body { margin: 0; background: var(--bg); color: var(--fg); font: 17px/1.6 var(--sans); }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 18px/1.65 var(--sans); }
   a { color: var(--accText); }
   :focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
   .wrap { max-width: var(--max); margin: 0 auto; padding-inline: 16px; }
@@ -32,86 +33,71 @@
   .lang button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 
   /* ------------------------------------------------------------------- hero */
-  .hero { border-top: 3px solid var(--acc); border-bottom: 1px solid var(--line); padding-block: clamp(48px, 7vw, 96px) clamp(40px, 5vw, 64px);
-          background: radial-gradient(ellipse 60% 80% at 85% 20%, #10203a 0%, transparent 70%); }
-  .hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px 56px; align-items: center; }
-  .hero h1 { margin: 0; font-size: clamp(48px, 8.4vw, 112px); line-height: .95; font-weight: 700; letter-spacing: .01em; }
-  .hero .claim { margin: 18px 0 0; font-size: clamp(22px, 2.6vw, 32px); line-height: 1.25; font-weight: 600; }
-  .hero .lead { margin: 16px 0 0; color: var(--dim); font-size: 18px; max-width: 32em; }
+  .hero { border-top: 3px solid var(--acc); padding-block: clamp(56px, 9vw, 128px) clamp(24px, 4vw, 48px); }
+  .hero h1 { margin: 0; font-size: clamp(52px, 10vw, 136px); line-height: .92; font-weight: 700; letter-spacing: .01em; }
+  .hero .claim { margin: 22px 0 0; font-size: clamp(24px, 3vw, 38px); line-height: 1.2; font-weight: 600; max-width: 22em; }
+  .hero .lead { margin: 18px 0 0; color: var(--dim); font-size: clamp(17px, 1.5vw, 20px); max-width: 38em; }
 
-  /* the agent's case log */
-  .agent { background: var(--panel); border: 1px solid var(--line); min-width: 0; font-family: var(--mono); }
-  .agent .top { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line);
-                font: 500 14px var(--mono); color: var(--accText); }
-  .agent .top .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--acc); }
-  .agent .top .flag { margin-left: auto; color: var(--warm); }
-  .agent ol { list-style: none; margin: 0; padding: 14px 16px 6px; min-height: 13.5em; }
-  .agent li { display: grid; grid-template-columns: 1.4em 1fr; gap: 6px; font-size: 15px; line-height: 1.5; padding: 3px 0; color: var(--fg);
-              opacity: 0; transform: translateY(4px); transition: opacity .45s ease-out, transform .45s ease-out; }
-  .agent li.on { opacity: 1; transform: none; }
-  .agent li .m { color: var(--ok); }
-  .agent li.run .m { color: var(--accText); }
-  .agent li.done { color: var(--warm); font-weight: 500; }
-  .agent li.done .m { color: var(--warm); }
-  .agent .foot { padding: 10px 16px 14px; font: 13px var(--sans); color: var(--faint); border-top: 1px solid var(--line); }
+  /* ------------------------------------------------------------------ story */
+  .story { display: grid; gap: clamp(48px, 8vw, 112px); padding-block: clamp(32px, 5vw, 64px); }
+  .turn { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px clamp(24px, 4vw, 64px); align-items: center; }
+  .turn:nth-child(even) { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .turn:nth-child(even) .text { order: 2; }
+  .turn h2 { margin: 0 0 12px; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.15; font-weight: 600; }
+  .turn p { margin: 0 0 14px; max-width: 34em; }
+  .turn p:last-child { margin-bottom: 0; }
+  .turn figure { margin: 0; min-width: 0; }
+  .turn figure img { display: block; width: 100%; height: auto; max-width: 100%;
+    /* fade every edge into the page, so the slide has no frame */
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
+                        linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+    -webkit-mask-composite: source-in;
+            mask-image: linear-gradient(to right, transparent 0, #000 7%, #000 93%, transparent 100%),
+                        linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+            mask-composite: intersect; }
+  .turn figcaption { margin-top: 6px; font-size: 14px; color: var(--faint); padding-inline: 7%; }
+  .turn figcaption button { all: unset; cursor: pointer; color: var(--accText); }
+  .turn figcaption button:focus-visible { outline: 2px solid var(--acc); outline-offset: 2px; }
 
-  /* ---------------------------------------------------------------- backlog */
-  .desk { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 8px; }
-  .desk > div { background: var(--panel); padding: 22px 22px 24px; min-width: 0; }
-  .desk h3 { margin: 0 0 4px; font-size: 20px; font-weight: 600; }
-  .desk p { margin: 0 0 18px; color: var(--dim); font-size: 15px; max-width: 30em; }
-  .pile { display: grid; grid-template-columns: repeat(18, 1fr); gap: 3px; max-width: 360px; }
-  .pile i { aspect-ratio: 1; background: var(--alarm); opacity: .55; }
-  .pile i.cleared { background: var(--faint); opacity: .35; }
-  .list { display: grid; gap: 8px; max-width: 420px; }
-  .list div { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); border-left: 3px solid var(--ok);
-              padding: 8px 12px; font: 14px var(--sans); color: var(--fg); }
-  .list div span { margin-left: auto; font: 12px var(--mono); color: var(--ok); }
+  /* ----------------------------------------------------------------- videos */
+  section { padding-block: 56px 8px; }
+  h2.label { font: 600 15px var(--sans); color: var(--accText); margin: 0 0 20px; }
+  .videos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 32px 28px; }
+  .video { min-width: 0; }
+  .video .media { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: #000; cursor: pointer; }
+  .video .media img, .video .media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .video .media.full video { object-fit: contain; }
+  .video .media.full { cursor: default; }
+  .video .play { position: absolute; left: 12px; bottom: 10px; font: 600 13px var(--sans); color: var(--fg);
+                 background: rgba(5,8,16,.82); border: 1px solid var(--acc); padding: 4px 11px; }
+  .video h3 { margin: 12px 0 4px; font-size: 19px; font-weight: 600; }
+  .video .len { font: 13px var(--mono); color: var(--faint); margin-left: 8px; font-weight: 400; }
+  .video p { margin: 0; color: var(--dim); font-size: 15px; line-height: 1.5; }
+  .note { color: var(--faint); font-size: 14px; margin: 18px 0 0; }
 
-  section { padding-block: 48px 8px; }
-  h2 { font: 600 15px var(--sans); color: var(--accText); margin: 0 0 18px; }
-  .about p { margin: 0 0 16px; max-width: 40em; }
-  .figs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--line);
-          border: 1px solid var(--line); margin: 8px 0 0; }
-  .figs > div { background: var(--panel); padding: 16px 18px; }
-  .figs .k { font: 600 13px var(--sans); color: var(--faint); }
-  .figs .v { font: 30px/1.2 var(--mono); margin: 6px 0 4px; }
-  .figs .d { font: 14px/1.4 var(--sans); color: var(--dim); }
+  /* ---------------------------------------------------------------- contact */
+  .people { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px 28px; }
+  .people div { min-width: 0; border-top: 1px solid var(--line); padding-top: 12px; }
+  .people .n { font-weight: 600; }
+  .people .r { color: var(--dim); font-size: 15px; }
+  .people a { font: 15px var(--mono); overflow-wrap: anywhere; }
 
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 20px; }
-  .card { background: var(--panel); border: 1px solid var(--line); min-width: 0; }
-  .card .media { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background: #000; cursor: pointer; }
-  .card .media video, .card .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-  .card .media.full video { object-fit: contain; }
-  .card .play { position: absolute; left: 14px; bottom: 12px; font: 600 13px var(--sans); color: var(--fg);
-                background: rgba(5,8,16,.82); border: 1px solid var(--acc); padding: 5px 12px; }
-  .card .media.full { cursor: default; }
-  .card .body { padding: 14px 18px 18px; }
-  .card h3 { margin: 0 0 6px; font-size: 21px; font-weight: 600; }
-  .card .len { font: 13px var(--mono); color: var(--faint); margin-left: 8px; font-weight: 400; }
-  .card p { margin: 0; color: var(--dim); font-size: 15px; }
-  .note { color: var(--faint); font-size: 14px; margin: 14px 0 0; }
-
-  .builders { margin-top: 48px; padding: 28px; background: var(--plate); color: var(--plateFg);
+  .builders { margin-top: 56px; padding: 28px; background: var(--plate); color: var(--plateFg);
               display: flex; flex-wrap: wrap; align-items: center; gap: 20px 48px; }
   .builders .marks { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px; }
   .builders .marks img { height: 72px; width: auto; display: block; }
-  .builders p { margin: 0; flex: 1 1 22em; min-width: 0; font-size: 15px; }
+  .builders p { margin: 0; flex: 1 1 22em; min-width: 0; font-size: 15px; line-height: 1.55; }
+  .builders a { color: #1f5fbf; }
 
   footer { margin-top: 56px; background: var(--foot); border-top: 1px solid var(--line); }
   footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; padding-block: 22px; }
   footer .fundline { color: var(--dim); font-size: 14px; max-width: 34em; }
   footer .fx { margin-left: auto; }
   footer img { height: 34px; display: block; }
-  .builders a { color: #1f5fbf; }
-  .people { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-  .people > div { background: var(--panel); padding: 18px 20px; min-width: 0; }
-  .people .n { font-weight: 600; font-size: 18px; }
-  .people .r { color: var(--dim); font-size: 14px; margin-bottom: 8px; }
-  .people a { font: 14px var(--mono); overflow-wrap: anywhere; }
   @media (max-width: 860px) {
-    .hero .wrap, .desk { grid-template-columns: 1fr; }
-    .grid { grid-template-columns: 1fr; }
+    .turn, .turn:nth-child(even) { grid-template-columns: 1fr; }
+    .turn:nth-child(even) .text { order: 0; }
+    .turn figure { margin-inline: -16px; }
     .builders .marks img { height: 52px; }
     footer .fx { margin-left: 0; }
   }
@@ -124,60 +110,23 @@
 
 <header class="hero">
   <div class="wrap">
-    <div>
-      <h1>SEAVISTA</h1>
-      <p class="claim" data-t="claim"></p>
-      <p class="lead" data-t="lead"></p>
-    </div>
-    <div class="agent" aria-live="off">
-      <div class="top"><span class="dot"></span><span data-t="agent"></span><span class="flag" id="flag"></span></div>
-      <ol id="log"></ol>
-      <div class="foot" data-t="agent_foot"></div>
-    </div>
+    <h1>SEAVISTA</h1>
+    <p class="claim" data-t="claim"></p>
+    <p class="lead" data-t="lead"></p>
   </div>
 </header>
 
 <main class="wrap">
-  <section>
-    <h2 data-t="desk_h"></h2>
-    <div class="desk">
-      <div>
-        <h3 data-t="without_h"></h3>
-        <p data-t="without_p"></p>
-        <div class="pile" id="pile"></div>
-      </div>
-      <div>
-        <h3 data-t="with_h"></h3>
-        <p data-t="with_p"></p>
-        <div class="list">
-          <div><span data-t="case_a"></span><span data-t="ready"></span></div>
-          <div><span data-t="case_b"></span><span data-t="ready"></span></div>
-          <div><span data-t="case_c"></span><span data-t="ready"></span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="about">
-    <h2 data-t="about_h"></h2>
-    <p data-t="about_1"></p>
-    <p data-t="about_2"></p>
-    <div class="figs">
-      <div><div class="k" data-t="f2k"></div><div class="v">84s</div><div class="d" data-t="f2d"></div></div>
-      <div><div class="k" data-t="f3k"></div><div class="v">0</div><div class="d" data-t="f3d"></div></div>
-      <div><div class="k" data-t="f5k"></div><div class="v">100%</div><div class="d" data-t="f5d"></div></div>
-      <div><div class="k" data-t="f1k"></div><div class="v">6,000/s</div><div class="d" data-t="f1d"></div></div>
-    </div>
-  </section>
+  <div class="story" id="story"></div>
 
   <section>
-    <h2 data-t="videos_h"></h2>
-    <div class="grid" id="videos"></div>
+    <h2 class="label" data-t="videos_h"></h2>
+    <div class="videos" id="videos"></div>
     <p class="note" data-t="videos_note"></p>
   </section>
 
-  <section class="contact">
-    <h2 data-t="contact_h"></h2>
+  <section>
+    <h2 class="label" data-t="contact_h"></h2>
     <div class="people">
       <div><div class="n">Prof. Panos Trahanias</div><div class="r" data-t="pi"></div><a href="mailto:trahania@ics.forth.gr">trahania@ics.forth.gr</a></div>
       <div><div class="n">Dr. Nikolaos Kyriazis</div><div class="r" data-t="tc"></div><a href="mailto:kyriazis@ics.forth.gr">kyriazis@ics.forth.gr</a></div>
@@ -206,116 +155,132 @@
 </footer>
 
 <script>
-// The agent's steps are the hub's own list (a4_tools, a4_graph): what it can do, in the order one case needed.
-// Each case takes a different investigation, which is the point the log makes by running more than once.
-const CASES = {
-  en: [
-    ["question the live picture", "run the forecast for this vessel", "plot this vessel's scores", "draw the water on a map", "look at what it drew"],
-    ["ask who operates this vessel", "ask what was reported nearby", "plot this vessel's scores", "run the forecast for this vessel"],
-    ["check what this watch has already cleared", "question the live picture", "draw the water on a map", "look at what it drew"],
-  ],
-  el: [
-    ["εξετάζει τη ζωντανή εικόνα", "τρέχει την πρόβλεψη για το σκάφος", "σχεδιάζει τις βαθμολογίες του σκάφους", "σχεδιάζει τα ύδατα σε χάρτη", "κοιτάζει ό,τι σχεδίασε"],
-    ["ρωτά ποιος εκμεταλλεύεται το σκάφος", "ρωτά τι αναφέρθηκε κοντά", "σχεδιάζει τις βαθμολογίες του σκάφους", "τρέχει την πρόβλεψη για το σκάφος"],
-    ["ελέγχει τι έχει ήδη κλείσει η βάρδια", "εξετάζει τη ζωντανή εικόνα", "σχεδιάζει τα ύδατα σε χάρτη", "κοιτάζει ό,τι σχεδίασε"],
-  ],
-};
+/*
+ * The story. One turn per idea, each with the graphic from the slide that made the same point.
+ * Every figure here is one the videos state, sourced to D5.1; `from` names the video the graphic is
+ * lifted from, and a caption says so when the graphic's numbers are an illustration.
+ */
+const STORY = [
+  {img: "problem", from: "hub",
+   en: {h: "The problem",
+        p: ["Every vessel at sea reports where it is, every few seconds. Watching that by rule means writing a limit for each case somebody has already thought of.",
+            "Set the limit loose and the case is missed. Set it tight and the desk fills with false alarms. Every new trick needs a new rule, written after it has worked."],
+        c: "The rulebook, in the overview video. The counts are an illustration."},
+   el: {h: "Το πρόβλημα",
+        p: ["Κάθε σκάφος στη θάλασσα αναφέρει πού βρίσκεται, κάθε λίγα δευτερόλεπτα. Η παρακολούθηση με κανόνες σημαίνει ένα όριο για κάθε περίπτωση που έχει ήδη σκεφτεί κάποιος.",
+            "Αν το όριο είναι χαλαρό, η περίπτωση χάνεται. Αν είναι αυστηρό, το γραφείο γεμίζει ψευδείς συναγερμούς. Κάθε νέο τέχνασμα χρειάζεται νέο κανόνα, γραμμένο αφού έχει ήδη πετύχει."],
+        c: "Οι κανόνες, στο βίντεο επισκόπησης. Οι αριθμοί είναι ενδεικτικοί."}},
+  {img: "normal", from: "modelling",
+   en: {h: "Learning normal",
+        p: ["SEAVISTA learns how ships normally move, from recorded traffic. Of every vessel, with every report, it asks whether this manoeuvre is ordinary, whether this continuation is ordinary, and whether vessels are ever here.",
+            "One calculation answers all three, and it has room for more. The traffic around a vessel, the water, the ports and the destination it broadcasts all enter as inputs, never as rules in a list."],
+        c: "The futures the model imagines for one hour of a voyage, and what the ship actually did."},
+   el: {h: "Μαθαίνοντας το σύνηθες",
+        p: ["Το SEAVISTA μαθαίνει πώς κινούνται συνήθως τα πλοία, από καταγεγραμμένη κίνηση. Για κάθε σκάφος, με κάθε αναφορά, ρωτά αν ο ελιγμός είναι συνήθης, αν η συνέχεια είναι συνήθης, και αν βρίσκονται ποτέ σκάφη εκεί.",
+            "Ένας υπολογισμός απαντά και στα τρία, και έχει χώρο για περισσότερα. Η κίνηση γύρω από το σκάφος, τα ύδατα, τα λιμάνια και ο προορισμός που δηλώνει μπαίνουν ως είσοδοι, όχι ως κανόνες σε μια λίστα."],
+        c: "Οι συνέχειες που φαντάζεται το μοντέλο για μία ώρα ταξιδιού, και τι έκανε πραγματικά το πλοίο."}},
+  {img: "agent", from: "awareness",
+   en: {h: "The agent works the case",
+        p: ["The scoring is eager by design and flags anything that stands out. Each flag goes to an AI agent with the full context of the water and of the vessel.",
+            "The agent writes its own investigation and runs it. It questions the live picture, runs the forecast, plots the vessel's scores, draws the water on a map, and then looks at what it drew. The next case gets a different investigation, chosen after seeing the evidence."],
+        c: "A real session. The agent's own map and chart of a pilot boat meeting a tanker."},
+   el: {h: "Ο πράκτορας δουλεύει την υπόθεση",
+        p: ["Η βαθμολόγηση είναι σκόπιμα πρόθυμη και επισημαίνει ό,τι ξεχωρίζει. Κάθε επισήμανση πηγαίνει σε έναν πράκτορα τεχνητής νοημοσύνης, με όλο το πλαίσιο των υδάτων και του σκάφους.",
+            "Ο πράκτορας γράφει τη δική του διερεύνηση και την εκτελεί. Εξετάζει τη ζωντανή εικόνα, τρέχει την πρόβλεψη, σχεδιάζει τις βαθμολογίες του σκάφους, σχεδιάζει τα ύδατα σε χάρτη, και κοιτάζει ό,τι σχεδίασε. Η επόμενη υπόθεση έχει άλλη διερεύνηση, που επιλέγεται αφού δει τα στοιχεία."],
+        c: "Πραγματική συνεδρία. Ο χάρτης και το διάγραμμα του ίδιου του πράκτορα, για ένα πιλοτικό σκάφος που συναντά ένα δεξαμενόπλοιο."}},
+  {img: "desk", from: "hub",
+   en: {h: "No backlog on the desk",
+        p: ["Without a layer like this, every alert is somebody's problem. The queue grows faster than a watch can clear it, and the cost of looking falls on people.",
+            "With it, one officer works a short list. Every case on it has already been investigated, and arrives with its reasons attached and with what would change the call."],
+        c: "The desk, in the overview video. The counts are an illustration."},
+   el: {h: "Χωρίς εκκρεμότητες στο γραφείο",
+        p: ["Χωρίς ένα τέτοιο επίπεδο, κάθε ειδοποίηση είναι πρόβλημα κάποιου. Η ουρά μεγαλώνει πιο γρήγορα απ' όσο μπορεί να την αδειάσει μια βάρδια, και το κόστος του ελέγχου πέφτει στους ανθρώπους.",
+            "Με αυτό, ένας αξιωματικός δουλεύει μια σύντομη λίστα. Κάθε υπόθεση σε αυτήν έχει ήδη διερευνηθεί, και φτάνει με τους λόγους της και με το τι θα άλλαζε την εκτίμηση."],
+        c: "Το γραφείο, στο βίντεο επισκόπησης. Οι αριθμοί είναι ενδεικτικοί."}},
+  {img: "reasons", from: "results",
+   en: {h: "Every call traceable",
+        p: ["In every labelled case, each reason that applied was cited, and a person's verdict makes a decision final. Any call can be traced back to why it was made.",
+            "Across three passes over two labelled sets of ordinary traffic, 72 and 69 cases, no false alarm reached the officer. An alert reached a person in a median of 84 seconds, already investigated and written up."],
+        c: "The reasons, in the video on what we measured."},
+   el: {h: "Κάθε απόφαση ιχνηλατήσιμη",
+        p: ["Σε κάθε επισημασμένη περίπτωση, κάθε λόγος που ίσχυε παρατέθηκε, και η κρίση ενός ανθρώπου κάνει την απόφαση οριστική. Κάθε απόφαση μπορεί να ανιχνευθεί ως το γιατί πάρθηκε.",
+            "Σε τρία περάσματα πάνω σε δύο επισημασμένα σύνολα συνήθους κίνησης, 72 και 69 περιπτώσεις, κανένας ψευδής συναγερμός δεν έφτασε στον αξιωματικό. Μια ειδοποίηση έφτασε σε άνθρωπο σε διάμεσο χρόνο 84 δευτερολέπτων, ήδη διερευνημένη και καταγεγραμμένη."],
+        c: "Οι λόγοι, στο βίντεο για όσα μετρήσαμε."}},
+  {img: "seas", from: "results",
+   en: {h: "One workstation, any sea",
+        p: ["All of it runs on one workstation. It carries about 6,000 vessel updates a second, each a full pass through every model, and about 48 times that with requests grouped into batches.",
+            "One model learned four national sea areas at once. On Danish water it beats the model trained on Danish water alone, 13.3 m against 38.8 m in mean curve error. A new sea area is added in under four hours."],
+        c: "Four national sea areas, one model, in the video on what we measured."},
+   el: {h: "Ένας σταθμός εργασίας, κάθε θάλασσα",
+        p: ["Όλο το σύστημα τρέχει σε έναν σταθμό εργασίας. Επεξεργάζεται περίπου 6.000 ενημερώσεις σκαφών το δευτερόλεπτο, καθεμία με πλήρη διέλευση από όλα τα μοντέλα, και περίπου 48 φορές περισσότερες όταν τα αιτήματα ομαδοποιούνται.",
+            "Ένα μοντέλο έμαθε ταυτόχρονα τέσσερις εθνικές θαλάσσιες περιοχές. Στα ύδατα της Δανίας ξεπερνά το μοντέλο που εκπαιδεύτηκε μόνο σε αυτά, 13,3 m έναντι 38,8 m μέσου σφάλματος καμπύλης. Μια νέα θαλάσσια περιοχή προστίθεται σε λιγότερο από τέσσερις ώρες."],
+        c: "Τέσσερις εθνικές θαλάσσιες περιοχές, ένα μοντέλο, στο βίντεο για όσα μετρήσαμε."}},
+];
+
 const T = {
   en: {
     claim: "The agent works the case. The officer decides.",
-    lead: "When something stands out at sea, an AI agent investigates before any officer is called. One officer works a short list, and every case on it arrives already investigated, with its reasons attached.",
-    agent: "agent", flag: (n) => `flag ${n}`,
-    written: "case written, reasons attached, to the officer",
-    agent_foot: "Each case gets its own investigation. Different questions, in a different order, chosen after seeing the evidence.",
-    desk_h: "The desk",
-    without_h: "Every alert is somebody's problem",
-    without_p: "The queue grows faster than a watch can clear it, and the cost of looking falls on people.",
-    with_h: "One officer, a short list",
-    with_p: "Every case on it has already been investigated, and arrives with its reasons and with what would have changed the call.",
-    case_a: "Investigated case", case_b: "Investigated case", case_c: "Investigated case", ready: "ready to decide",
-    about_h: "The project",
-    about_1: "SEAVISTA scores every vessel with each position report it sends, against a model of how ships normally move, learned from recorded traffic. The scoring is eager by design and flags anything that stands out. Every flag then goes to an AI agent with the full context, so a real case reaches the officer already explained.",
-    about_2: "An alert reached a person in a median of 84 seconds, investigated and written up. Across 72 and 69 cases of ordinary traffic, no false alarm reached the officer. Every decision cites the rules that fired.",
-    f1k: "Throughput", f1d: "vessel updates a second, every one a full pass through the models, on one workstation",
-    f2k: "Latency", f2d: "median time from the signal to an investigated case in front of a person",
-    f3k: "Quiet", f3d: "false alarms reaching the officer, across 72 and 69 cases of ordinary traffic",
-    f5k: "Citations", f5d: "of the reasons that applied were cited, in every labelled case",
+    lead: "SEAVISTA watches every vessel at sea, investigates what stands out, and hands one officer a short list of cases that are already worked. A research prototype built at FORTH-ICS and CVRL.",
+    watch: "Watch it",
     videos_h: "The videos",
     videos_note: "The videos are in English, with the captions burned in, so they also play muted.",
     play: "▶ Play",
+    contact_h: "Contact", pi: "Principal Investigator", tc: "Technical Coordinator", ld: "Lead Developer",
     built: "SEAVISTA was built at the Computational Vision and Robotics Laboratory (CVRL) of the Institute of Computer Science, FORTH.",
     funding: "Co-funded by Frontex under the Frontex Research Grants Programme",
     frontex_page: "The project at Frontex",
-    contact_h: "Contact", pi: "Principal Investigator", tc: "Technical Coordinator", ld: "Lead Developer",
   },
   el: {
     claim: "Ο πράκτορας δουλεύει την υπόθεση. Ο αξιωματικός αποφασίζει.",
-    lead: "Όταν κάτι ξεχωρίζει στη θάλασσα, ένας πράκτορας τεχνητής νοημοσύνης το διερευνά πριν κληθεί οποιοσδήποτε αξιωματικός. Ένας αξιωματικός δουλεύει μια σύντομη λίστα, και κάθε υπόθεση φτάνει σε αυτήν ήδη διερευνημένη, με τους λόγους της.",
-    agent: "πράκτορας", flag: (n) => `επισήμανση ${n}`,
-    written: "η υπόθεση γράφτηκε, με τους λόγους της, προς τον αξιωματικό",
-    agent_foot: "Κάθε υπόθεση έχει τη δική της διερεύνηση. Άλλες ερωτήσεις, με άλλη σειρά, που επιλέγονται αφού δει τα στοιχεία.",
-    desk_h: "Το γραφείο",
-    without_h: "Κάθε ειδοποίηση είναι πρόβλημα κάποιου",
-    without_p: "Η ουρά μεγαλώνει πιο γρήγορα απ' όσο μπορεί να την αδειάσει μια βάρδια, και το κόστος του ελέγχου πέφτει στους ανθρώπους.",
-    with_h: "Ένας αξιωματικός, μια σύντομη λίστα",
-    with_p: "Κάθε υπόθεση σε αυτήν έχει ήδη διερευνηθεί, και φτάνει με τους λόγους της και με το τι θα άλλαζε την εκτίμηση.",
-    case_a: "Διερευνημένη υπόθεση", case_b: "Διερευνημένη υπόθεση", case_c: "Διερευνημένη υπόθεση", ready: "έτοιμη για απόφαση",
-    about_h: "Το έργο",
-    about_1: "Το SEAVISTA βαθμολογεί κάθε σκάφος με κάθε αναφορά θέσης που στέλνει, σε σχέση με ένα μοντέλο του πώς κινούνται συνήθως τα πλοία, που έχει μάθει από καταγεγραμμένη κίνηση. Η βαθμολόγηση είναι σκόπιμα πρόθυμη και επισημαίνει ό,τι ξεχωρίζει. Κάθε επισήμανση πηγαίνει μετά σε έναν πράκτορα τεχνητής νοημοσύνης με όλο το πλαίσιο, ώστε μια πραγματική υπόθεση να φτάνει στον αξιωματικό ήδη εξηγημένη.",
-    about_2: "Μια ειδοποίηση έφτασε σε άνθρωπο σε διάμεσο χρόνο 84 δευτερολέπτων, διερευνημένη και καταγεγραμμένη. Σε 72 και 69 περιπτώσεις συνήθους κίνησης, κανένας ψευδής συναγερμός δεν έφτασε στον αξιωματικό. Κάθε απόφαση παραθέτει τους κανόνες που ενεργοποιήθηκαν.",
-    f1k: "Ρυθμός", f1d: "ενημερώσεις σκαφών το δευτερόλεπτο, καθεμία με πλήρη διέλευση από τα μοντέλα, σε έναν σταθμό εργασίας",
-    f2k: "Χρόνος", f2d: "διάμεσος χρόνος από το σήμα ως μια διερευνημένη υπόθεση μπροστά σε άνθρωπο",
-    f3k: "Ησυχία", f3d: "ψευδείς συναγερμοί προς τον αξιωματικό, σε 72 και 69 περιπτώσεις συνήθους κίνησης",
-    f5k: "Παραπομπές", f5d: "των λόγων που ίσχυαν παρατέθηκαν, σε κάθε επισημασμένη περίπτωση",
+    lead: "Το SEAVISTA παρακολουθεί κάθε σκάφος στη θάλασσα, διερευνά ό,τι ξεχωρίζει, και δίνει σε έναν αξιωματικό μια σύντομη λίστα υποθέσεων που έχουν ήδη δουλευτεί. Ένα ερευνητικό πρωτότυπο του ΙΠ-ΙΤΕ και του CVRL.",
+    watch: "Δείτε το",
     videos_h: "Τα βίντεο",
     videos_note: "Τα βίντεο είναι στα αγγλικά, με ενσωματωμένους υπότιτλους, ώστε να παίζουν και χωρίς ήχο.",
     play: "▶ Αναπαραγωγή",
+    contact_h: "Επικοινωνία", pi: "Επιστημονικός Υπεύθυνος", tc: "Τεχνικός Συντονιστής", ld: "Επικεφαλής Ανάπτυξης",
     built: "Το SEAVISTA αναπτύχθηκε στο Εργαστήριο Υπολογιστικής Όρασης και Ρομποτικής (CVRL) του Ινστιτούτου Πληροφορικής του ΙΤΕ.",
     funding: "Συγχρηματοδοτείται από τον Frontex στο πλαίσιο του Frontex Research Grants Programme",
     frontex_page: "Το έργο στον Frontex",
-    contact_h: "Επικοινωνία", pi: "Επιστημονικός Υπεύθυνος", tc: "Τεχνικός Συντονιστής", ld: "Επικεφαλής Ανάπτυξης",
   },
 };
 
-let lang = ((location.hash.slice(1) === "el" || location.hash.slice(1) === "en") && location.hash.slice(1))
+let lang = (["el", "en"].includes(location.hash.slice(1)) && location.hash.slice(1))
         || ((navigator.language || "").startsWith("el") ? "el" : "en");
 let manifest = null;
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
-const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// the pile: more arrive than are cleared (an illustration of a queue, not a measurement)
-const pile = document.getElementById("pile");
-for (let i = 0; i < 90; i++) { const t = document.createElement("i"); if (i % 5 === 0) t.className = "cleared"; pile.append(t); }
-
-// the agent's log: one case at a time, step by step, then the next case
-let run = 0, timer = null;
-function agentCase(k) {
-  const log = document.getElementById("log"), steps = CASES[lang][k % CASES[lang].length];
-  document.getElementById("flag").textContent = T[lang].flag(k + 1);
-  log.innerHTML = "";
-  const rows = [...steps.map((s) => ({s, cls: ""})), {s: T[lang].written, cls: "done"}].map(({s, cls}) => {
-    const li = document.createElement("li"); li.className = cls;
-    li.innerHTML = `<span class="m">${cls ? "→" : "✓"}</span><span></span>`;
-    li.lastChild.textContent = s; log.append(li); return li;
-  });
-  if (still) { rows.forEach((r) => r.classList.add("on")); return; }
-  const me = ++run; let i = 0;
-  const next = () => {
-    if (me !== run) return;
-    if (i < rows.length) {
-      const r = rows[i++]; r.classList.add("on", "run");
-      timer = setTimeout(() => { r.classList.remove("run"); next(); }, r.classList.contains("done") ? 2600 : 900);
-    } else timer = setTimeout(() => agentCase(k + 1), 600);
-  };
-  next();
+// the story's rows, built once; text is filled per language
+const story = document.getElementById("story");
+for (const s of STORY) {
+  const row = document.createElement("article");
+  row.className = "turn";
+  row.innerHTML = `<div class="text"><h2></h2></div>
+    <figure><img src="story/${s.img}.jpg" alt=""><figcaption><span></span> <button type="button"></button></figcaption></figure>`;
+  row.querySelector("button").addEventListener("click", () => playVideo(s.from));
+  s.row = row; story.append(row);
 }
 
-function render(restart = true) {
+function playVideo(id) {
+  const card = document.getElementById("v-" + id);
+  if (!card) return;
+  card.scrollIntoView({behavior: "smooth", block: "center"});
+  card.querySelector(".media").click();
+}
+
+function render() {
   document.documentElement.lang = lang;
   for (const el of document.querySelectorAll("[data-t]")) el.textContent = T[lang][el.dataset.t];
   for (const b of document.querySelectorAll(".lang button")) b.setAttribute("aria-pressed", b.dataset.lang === lang);
   try { history.replaceState(null, "", "#" + lang); } catch {}
-  if (restart) { clearTimeout(timer); agentCase(0); }
+  for (const s of STORY) {
+    const t = s[lang], text = s.row.querySelector(".text");
+    text.querySelector("h2").textContent = t.h;
+    text.querySelectorAll("p").forEach((p) => p.remove());
+    for (const para of t.p) { const p = document.createElement("p"); p.textContent = para; text.append(p); }
+    s.row.querySelector("img").alt = t.c;
+    s.row.querySelector("figcaption span").textContent = t.c;
+    s.row.querySelector("figcaption button").textContent = T[lang].watch + " ▶";
+  }
   if (!manifest) return;
   for (const v of manifest.videos) {
     const card = document.getElementById("v-" + v.id);
@@ -331,12 +296,9 @@ async function load() {
   for (const v of manifest.videos) {
     const meta = await fetch(`media/${v.id}.json`).then((r) => (r.ok ? r.json() : null)).catch(() => null);
     const card = document.createElement("article");
-    card.className = "card"; card.id = "v-" + v.id;
-    const preview = v.loop_name && !still
-      ? `<video src="loops/${v.loop_name}.mp4" poster="loops/${v.loop_name}.jpg" muted loop playsinline autoplay preload="metadata"></video>`
-      : `<img src="media/${v.id}.jpg" alt="">`;
-    card.innerHTML = `<div class="media">${preview}<span class="play"></span></div>
-      <div class="body"><h3><span class="t"></span>${meta ? `<span class="len">${mmss(meta.seconds)}</span>` : ""}</h3><p></p></div>`;
+    card.className = "video"; card.id = "v-" + v.id;
+    card.innerHTML = `<div class="media"><img src="media/${v.id}.jpg" alt=""><span class="play"></span></div>
+      <h3><span class="t"></span>${meta ? `<span class="len">${mmss(meta.seconds)}</span>` : ""}</h3><p></p>`;
     card.querySelector(".media").addEventListener("click", (e) => {
       const m = e.currentTarget; if (m.classList.contains("full")) return;
       for (const other of document.querySelectorAll(".media.full video")) other.pause();
@@ -345,7 +307,7 @@ async function load() {
     });
     grid.append(card);
   }
-  render(false);
+  render();
 }
 
 for (const b of document.querySelectorAll(".lang button"))

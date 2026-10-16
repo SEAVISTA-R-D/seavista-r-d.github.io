@@ -5,7 +5,7 @@ set -euo pipefail
 S=$(cd "$(dirname "$0")/.." && pwd); O=$S/_artifact
 [ -f ~/.claude/skills/flow/flow.sh ] && source ~/.claude/skills/flow/flow.sh || { flow(){ :; }; step(){ echo "$1"; }; ok(){ :; }; progress(){ :; }; }
 ff(){ docker run --rm -u $(id -u) -e HOME=/tmp -v $S:$S --entrypoint ffmpeg seavista-video/encode -v error -y "$@"; }
-mkdir -p $O/media $O/loops $O/assets
+mkdir -p $O/media $O/assets
 flow "Artifact build of the page" 2
 ids=$(python3 -c "import json;print(' '.join(v['id'] for v in json.load(open('$S/videos.json'))['videos']))"); n=$(wc -w <<<"$ids")
 step "720p encodes"; i=0
@@ -15,7 +15,7 @@ for id in $ids; do i=$((i+1)); progress $i $n "$id"
   cp $S/media/$id.{jpg,json} $O/media/
 done; ok
 step "page"
-cp $S/loops/* $O/loops/; cp $S/assets/*.png $O/assets/; cp $S/videos.json $O/
+rm -rf $O/loops $O/story; mkdir -p $O/story; cp $S/story/*.jpg $O/story/; cp $S/assets/*.png $O/assets/; cp $S/videos.json $O/
 python3 - $S/index.html $O/index.html <<'PY'
 import re,sys
 s=open(sys.argv[1]).read()
