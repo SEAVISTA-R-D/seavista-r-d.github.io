@@ -69,8 +69,6 @@
   #overview .video p { font-size: 17px; max-width: 30em; }
   h2.label.deep { margin-top: 64px; margin-bottom: 6px; }
   .deep-intro { margin: 0 0 22px; color: var(--dim); font-size: 16px; max-width: 40em; }
-  .video .deepens { margin-top: 8px; font-size: 14px; color: var(--faint); }
-  .video .deepens a { color: var(--accText); }
   section { padding-block: 56px 8px; }
   h2.label { font: 600 15px var(--sans); color: var(--accText); margin: 0 0 20px; }
   .videos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 28px; }
@@ -258,10 +256,9 @@ const T = {
     lead: "SEAVISTA watches every vessel at sea, investigates what stands out, and hands one officer a short list of cases that are already worked. A research prototype built at FORTH-ICS and CVRL.",
     watch: "Watch it",
     cta: "Watch the overview",
-    start_h: "Start here",
-    deep_h: "Then go deeper",
-    deep_p: "Each deep dive takes one part of the story above and shows how it works.",
-    deepens: "Goes deeper into", and: " and ",
+    start_h: "Videos",
+    deep_h: "A closer look",
+    deep_p: "Each one looks closely at one part of SEAVISTA.",
     videos_note: "The videos are in English, with the captions burned in, so they also play muted.",
     play: "▶ Play",
     contact_h: "Contact", pi: "Principal Investigator", tc: "Technical Coordinator", ld: "Lead Developer",
@@ -274,10 +271,9 @@ const T = {
     lead: "Το SEAVISTA παρακολουθεί κάθε σκάφος στη θάλασσα, διερευνά ό,τι ξεχωρίζει, και δίνει σε έναν αξιωματικό μια σύντομη λίστα υποθέσεων που έχουν ήδη δουλευτεί. Ένα ερευνητικό πρωτότυπο του ΙΠ-ΙΤΕ και του CVRL.",
     watch: "Δείτε το",
     cta: "Δείτε την επισκόπηση",
-    start_h: "Ξεκινήστε εδώ",
-    deep_h: "Μετά, σε βάθος",
-    deep_p: "Κάθε εμβάθυνση παίρνει ένα κομμάτι της παραπάνω ιστορίας και δείχνει πώς λειτουργεί.",
-    deepens: "Εμβαθύνει σε", and: " και ",
+    start_h: "Βίντεο",
+    deep_h: "Από πιο κοντά",
+    deep_p: "Κάθε βίντεο εξετάζει από κοντά ένα μέρος του SEAVISTA.",
     videos_note: "Τα βίντεο είναι στα αγγλικά, με ενσωματωμένους υπότιτλους, ώστε να παίζουν και χωρίς ήχο.",
     play: "▶ Αναπαραγωγή",
     contact_h: "Επικοινωνία", pi: "Επιστημονικός Υπεύθυνος", tc: "Τεχνικός Συντονιστής", ld: "Επικεφαλής Ανάπτυξης",
@@ -342,17 +338,6 @@ function render() {
     card.querySelector("h3 .t").textContent = v.title[lang];
     card.querySelector("p").textContent = v.blurb[lang];
     const play = card.querySelector(".play"); if (play) play.textContent = T[lang].play;
-    const dp = card.querySelector(".deepens");
-    if (dp) {
-      dp.textContent = T[lang].deepens + " ";
-      (v.deepens || []).forEach((img, i) => {
-        const s = STORY.find((x) => x.img === img); if (!s) return;
-        if (i) dp.append(T[lang].and);
-        const a = document.createElement("a"); a.href = "#turn-" + img; a.textContent = s[lang].h;
-        a.addEventListener("click", (e) => { e.preventDefault(); s.row.scrollIntoView({behavior: "smooth", block: "center"}); });
-        dp.append(a);
-      });
-    }
   }
 }
 
@@ -365,7 +350,7 @@ async function load() {
     card.className = "video"; card.id = "v-" + v.id;
     card.innerHTML = `<div class="media"><img src="media/${v.id}.jpg" alt=""><span class="play"></span></div>
       <div><h3><span class="t"></span>${m ? `<span class="len">${mmss(m.seconds)}</span>` : ""}</h3><p></p>
-      ${v.role === "deep" ? `<div class="deepens"></div>` : ""}</div>`;
+</div>`;
     const media = card.querySelector(".media");
     media.tabIndex = 0; media.setAttribute("role", "button");
     media.addEventListener("click", () => playVideo(v.id));
