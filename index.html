@@ -22,16 +22,10 @@
   a { color: var(--accText); }
   .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
 
-  /* the band: light, the builders on the right, closed by the accent rule */
-  header.band { background: var(--bandBg); color: var(--bandFg); border-bottom: 3px solid var(--acc); }
-  header.band .wrap { display: flex; align-items: center; gap: 16px; height: 64px; }
-  header.band .name { font-weight: 700; font-size: 20px; letter-spacing: .02em; }
-  header.band .marks { margin-left: auto; display: flex; align-items: center; gap: 18px; }
-  header.band .marks img { height: 30px; display: block; }
-  .lang { display: flex; gap: 2px; margin-left: 12px; }
-  .lang button { font: 600 13px Plex, sans-serif; color: var(--bandFg); background: transparent; border: 1px solid #b9c4d2;
-                 padding: 3px 8px; cursor: pointer; }
-  .lang button[aria-pressed="true"] { background: var(--bandFg); color: var(--bandBg); border-color: var(--bandFg); }
+  .lang { position: absolute; top: 16px; right: 16px; z-index: 2; display: flex; gap: 2px; }
+  .lang button { font: 600 13px Plex, sans-serif; color: var(--fg); background: rgba(5,8,16,.7); border: 1px solid var(--faint);
+                 padding: 4px 9px; cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--fg); color: var(--bg); border-color: var(--fg); }
 
   /* hero: the live traffic loop under the subject */
   .hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
@@ -39,7 +33,9 @@
   .hero .over { position: absolute; inset: 0; display: flex; align-items: flex-end;
                 background: linear-gradient(to top, rgba(8,12,19,.92) 0%, rgba(8,12,19,.2) 55%, transparent 80%); }
   .hero .over .wrap { width: 100%; padding-bottom: clamp(20px, 4vw, 48px); }
-  .hero h1 { margin: 0; font-size: clamp(30px, 5.4vw, 64px); line-height: 1.05; font-weight: 700; }
+  .hero { border-top: 3px solid var(--acc); }
+  .hero h1 { margin: 0; font-size: clamp(44px, 9vw, 112px); line-height: 1; font-weight: 700; letter-spacing: .01em; }
+  .hero p.tag { margin: 8px 0 0; color: var(--fg); font-size: clamp(20px, 2.6vw, 32px); font-weight: 600; }
   .hero p { margin: 10px 0 0; color: var(--dim); font-size: clamp(15px, 1.7vw, 20px); max-width: 46em; }
 
   section { padding: 48px 0 8px; }
@@ -70,13 +66,17 @@
   .card p { margin: 0; color: var(--dim); font-size: 15px; }
   .note { color: var(--faint); font-size: 14px; margin: 14px 0 0; }
 
+  .builders { margin-top: 48px; padding: 28px 28px 24px; background: var(--bandBg); color: var(--bandFg);
+              display: flex; flex-wrap: wrap; align-items: center; gap: 20px 48px; }
+  .builders .marks { display: flex; flex-wrap: wrap; align-items: center; gap: 24px 48px; }
+  .builders .marks img { height: 72px; width: auto; display: block; }
+  .builders p { margin: 0; flex: 1 1 22em; min-width: 0; font-size: 15px; }
   footer { margin-top: 56px; background: var(--foot); border-top: 1px solid var(--line); }
   footer .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; padding: 22px 16px; }
   footer .fundline { color: var(--dim); font-size: 14px; max-width: 34em; }
   footer img { height: 34px; display: block; margin-left: auto; }
   @media (max-width: 640px) {
-    header.band .marks img { height: 22px; }
-    header.band .marks { gap: 10px; }
+    .builders .marks img { height: 52px; }
     .grid { grid-template-columns: 1fr; }
     .card .media.full { aspect-ratio: 16 / 9; }
     footer img { margin-left: 0; }
@@ -85,23 +85,15 @@
 </style>
 </head>
 <body>
-<header class="band">
-  <div class="wrap">
-    <span class="name">SEAVISTA</span>
-    <span class="marks">
-      <img src="assets/FORTH-ICS.png" alt="FORTH-ICS">
-      <img src="assets/CVRL.png" alt="CVRL">
-    </span>
-    <span class="lang" role="group" aria-label="Language">
-      <button data-lang="el">ΕΛ</button><button data-lang="en">EN</button>
-    </span>
-  </div>
-</header>
+<span class="lang" role="group" aria-label="Language">
+  <button data-lang="el">ΕΛ</button><button data-lang="en">EN</button>
+</span>
 
 <div class="hero">
   <video id="hero" src="loops/hero.mp4" poster="loops/hero.jpg" autoplay muted loop playsinline></video>
   <div class="over"><div class="wrap">
-    <h1 data-t="hero_h"></h1>
+    <h1>SEAVISTA</h1>
+    <p class="tag" data-t="hero_h"></p>
     <p data-t="hero_p"></p>
   </div></div>
 </div>
@@ -125,8 +117,12 @@
     <p class="note" data-t="videos_note"></p>
   </section>
 
-  <section class="about">
-    <p class="fund" data-t="built"></p>
+  <section class="builders">
+    <div class="marks">
+      <img src="assets/FORTH-ICS.png" alt="FORTH-ICS">
+      <img src="assets/CVRL.png" alt="CVRL">
+    </div>
+    <p data-t="built"></p>
   </section>
 </main>
 
