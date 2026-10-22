@@ -145,6 +145,8 @@
     footer .fx { margin-left: 0; }
   }
 </style>
+<!-- Visit counts: GoatCounter, no cookies, no personal data. It ignores localhost. -->
+<script data-goatcounter="https://nkyriazis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
 <span class="lang" role="group" aria-label="Language">
@@ -358,6 +360,20 @@ function playVideo(id) {
   pv.play().catch(() => {});
 }
 player.addEventListener("close", () => pv.pause());
+
+// Which videos are watched: an event when one starts, halfway, and at the end, once each per
+// page view. Nothing is sent when GoatCounter is not loaded (local preview, blocked script).
+const seen = new Set();
+function mark(what) {
+  const id = (pv.src.match(/media\/([^/]+)\.mp4$/) || [])[1];
+  if (!id || seen.has(what + id)) return;
+  seen.add(what + id);
+  if (window.goatcounter && window.goatcounter.count)
+    window.goatcounter.count({path: `video/${id}/${what}`, title: `${id}: ${what}`, event: true});
+}
+pv.addEventListener("play", () => mark("start"));
+pv.addEventListener("timeupdate", () => { if (pv.duration && pv.currentTime > pv.duration / 2) mark("half"); });
+pv.addEventListener("ended", () => mark("end"));
 document.getElementById("player-close").addEventListener("click", () => player.close());
 player.addEventListener("click", (e) => { if (e.target === player) player.close(); });
 
