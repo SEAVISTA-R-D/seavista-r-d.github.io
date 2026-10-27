@@ -18,7 +18,9 @@ GO=${1:-}
 tools/serve.sh >/dev/null; sleep 1
 tools/check.sh
 exec tools/run.sh bash -euc '
-  out=$(mktemp -d)
+  # mktemp makes the folder 700, and rsync would carry that onto public_html
+  # itself, which the web server then cannot read (a 403 on the first deploy).
+  out=$(mktemp -d); chmod 755 "$out"
   git archive HEAD | tar -x -C "$out"
   rm -rf "$out/tools" "$out/README.md" "$out/.gitignore"
   ssh_="ssh -o BatchMode=yes -o StrictHostKeyChecking=yes"
@@ -26,7 +28,7 @@ exec tools/run.sh bash -euc '
   [ "$1" = --go ] || flags+=(--dry-run)
   rsync "${flags[@]}" "$out/" "$2:$3/" | grep -v "^\.[fd] " || true
   if [ "$1" != --go ]; then echo "deploy: dry run of $(git rev-parse --short HEAD); tools/deploy.sh --go to send it"; exit 0; fi
-  want=$(sha1sum < "$out/index.html"); got=$(curl -fsS "$4/index.html?$(date +%s)" | sha1sum)
+  want=$(sha1sum < "$out/index.html"); got=$(curl -fsS --http1.1 "$4/index.html?$(date +%s)" | sha1sum)
   [ "$want" = "$got" ] || { echo "deploy: $4 does not serve this commit'"'"'s index.html" >&2; exit 1; }
   echo "deploy: $4 serves $(git rev-parse --short HEAD)"
 ' _ "$GO" "$HOST" "$ROOT" "$SITE"
