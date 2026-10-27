@@ -124,6 +124,8 @@
   .thanks p { margin: 0 0 10px; color: var(--dim); font-size: var(--fs-b); line-height: 1.55; max-width: 52em; }
 
   /* ---------------------------------------------------------------- contact */
+  .reach { margin: 0 0 24px; font-size: var(--fs-b); color: var(--dim); }
+  .reach a { font: 600 1.15em var(--mono); color: var(--accText); overflow-wrap: anywhere; }
   .people { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px 28px; }
   .people div { min-width: 0; border-top: 1px solid var(--line); padding-top: 12px; }
   .people .n { font-weight: 600; }
@@ -188,6 +190,7 @@
 
   <section>
     <h2 class="label" data-t="contact_h"></h2>
+    <p class="reach"><span data-t="reach"></span><br><a href="mailto:seavista@ics.forth.gr">seavista@ics.forth.gr</a></p>
     <div class="people">
       <div><div class="n"><a class="who" href="https://www.linkedin.com/in/panos-trahanias-844bba108/" target="_blank" rel="noopener">Prof. Panos Trahanias</a></div><div class="r" data-t="pi"></div><a href="mailto:trahania@ics.forth.gr">trahania@ics.forth.gr</a></div>
       <div><div class="n"><a class="who" href="https://www.linkedin.com/in/kyriazisn/" target="_blank" rel="noopener">Dr. Nikolaos Kyriazis</a></div><div class="r" data-t="tc"></div><a href="mailto:kyriazis@ics.forth.gr">kyriazis@ics.forth.gr</a></div>
@@ -306,7 +309,7 @@ const T = {
     thanks_data: "Recorded vessel traffic from the [Danish Maritime Authority](https://www.dma.dk/safety-at-sea/navigational-information/ais-data), [NOAA Marine Cadastre](https://hub.marinecadastre.gov/pages/vesseltraffic), [Fintraffic Digitraffic](https://www.digitraffic.fi/en/marine-traffic/) (CC BY 4.0) and [AIS data from DTU](https://doi.org/10.11583/DTU.21511815). The system also draws on open data from [EMODnet](https://emodnet.ec.europa.eu/), [Marine Regions](https://www.marineregions.org/) and [Open-Meteo](https://open-meteo.com/) (CC BY 4.0).",
     thanks_maps: "Basemaps by [Esri](https://www.esri.com/) and its data partners. Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors. Coastlines from [Natural Earth](https://www.naturalearthdata.com/).",
     thanks_tools: "The videos are made with [Remotion](https://www.remotion.dev/), voiced with [Kokoro](https://huggingface.co/hexgrad/Kokoro-82M) and set in [IBM Plex](https://www.ibm.com/plex/) with [Carbon](https://carbondesignsystem.com/) icons.",
-    contact_h: "Contact", pi: "Principal Investigator", tc: "Technical Coordinator", ld: "Lead Developer",
+    contact_h: "Contact", reach: "Write to the team", pi: "Principal Investigator", tc: "Technical Coordinator", ld: "Lead Developer",
     built: "SEAVISTA was built at the [Computational Vision and Robotics Laboratory (CVRL)](https://www.ics.forth.gr/cvrl/) of the [Institute of Computer Science](https://www.ics.forth.gr/), [FORTH](https://www.forth.gr/).",
     funding: "Co-funded by Frontex under the [Frontex Research Grants Programme](https://www.frontex.europa.eu/innovation/eu-research/research-grants/)",
     frontex_page: "The project on the Frontex website",
@@ -324,7 +327,7 @@ const T = {
     thanks_data: "Καταγεγραμμένη κυκλοφορία πλοίων από τη [Δανική Ναυτιλιακή Αρχή](https://www.dma.dk/safety-at-sea/navigational-information/ais-data), το [NOAA Marine Cadastre](https://hub.marinecadastre.gov/pages/vesseltraffic), το [Fintraffic Digitraffic](https://www.digitraffic.fi/en/marine-traffic/) (CC BY 4.0) και [δεδομένα AIS από το DTU](https://doi.org/10.11583/DTU.21511815). Το σύστημα αξιοποιεί επίσης ανοικτά δεδομένα από το [EMODnet](https://emodnet.ec.europa.eu/), το [Marine Regions](https://www.marineregions.org/) και το [Open-Meteo](https://open-meteo.com/) (CC BY 4.0).",
     thanks_maps: "Υπόβαθρα χαρτών από την [Esri](https://www.esri.com/) και τους συνεργάτες δεδομένων της. Δεδομένα χάρτη © Συνεισφέροντες του [OpenStreetMap](https://www.openstreetmap.org/copyright). Ακτογραμμές από το [Natural Earth](https://www.naturalearthdata.com/).",
     thanks_tools: "Τα βίντεο δημιουργήθηκαν με το [Remotion](https://www.remotion.dev/), με αφήγηση από το [Kokoro](https://huggingface.co/hexgrad/Kokoro-82M), σε γραμματοσειρά [IBM Plex](https://www.ibm.com/plex/) με εικονίδια [Carbon](https://carbondesignsystem.com/).",
-    contact_h: "Επικοινωνία", pi: "Επιστημονικός Υπεύθυνος", tc: "Τεχνικός Συντονιστής", ld: "Επικεφαλής Ανάπτυξης",
+    contact_h: "Επικοινωνία", reach: "Γράψτε στην ομάδα", pi: "Επιστημονικός Υπεύθυνος", tc: "Τεχνικός Συντονιστής", ld: "Επικεφαλής Ανάπτυξης",
     built: "Το SEAVISTA αναπτύχθηκε στο [Εργαστήριο Υπολογιστικής Όρασης και Ρομποτικής (CVRL)](https://www.ics.forth.gr/cvrl/) του [Ινστιτούτου Πληροφορικής](https://www.ics.forth.gr/) του [Ιδρύματος Τεχνολογίας και Έρευνας](https://www.forth.gr/) (ΙΠ-ΙΤΕ).",
     funding: "Με τη συγχρηματοδότηση της Frontex, στο πλαίσιο του [Frontex Research Grants Programme](https://www.frontex.europa.eu/innovation/eu-research/research-grants/)",
     frontex_page: "Το έργο στον ιστότοπο της Frontex",
