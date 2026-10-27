@@ -61,6 +61,11 @@ try {
     return {refs: [...out], og, origin: location.origin};
   })()`});
   const {refs, og, origin} = r.result.result.value;
+  // The page must move between hosts unchanged: nothing may point back at
+  // GitHub, or at the site's own address except the link-preview tags,
+  // which must be absolute and are held to SITE below.
+  const pinned = new RegExp(`github\\.(io|com)|githubusercontent|${env.SITE.replace(/^https?:\/\//, '').replace(/\./g, '\\.')}`);
+  for (const where of [...refs, ...urls.values()]) if (pinned.test(where)) problems.push(`absolute link to a host: ${where}`);
   for (const ref of refs) {
     if (!ref.startsWith(origin + '/')) continue;
     const path = decodeURIComponent(new URL(ref).pathname.slice(1)) || 'index.html';
