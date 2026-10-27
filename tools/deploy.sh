@@ -15,7 +15,8 @@ GO=${1:-}
 [ -z "$GO" ] || [ "$GO" = --go ] || { echo "usage: tools/deploy.sh [--go]" >&2; exit 2; }
 [ -z "$(git status --porcelain)" ] || { echo "deploy: the tree has uncommitted changes; commit them first" >&2; exit 1; }
 [ -z "$GO" ] || [ -n "$(git branch -r --contains HEAD)" ] || { echo "deploy: HEAD is not on origin; push it first" >&2; exit 1; }
-tools/serve.sh >/dev/null; sleep 1
+# Reuse a running preview: recreating it changes Docker's network under Chromium (ERR_NETWORK_CHANGED).
+[ "$(docker inspect -f '{{.State.Running}}' seavista-site-preview 2>/dev/null)" = true ] || { tools/serve.sh >/dev/null; sleep 2; }
 tools/check.sh
 exec tools/run.sh bash -euc '
   # mktemp makes the folder 700, and rsync would carry that onto public_html
